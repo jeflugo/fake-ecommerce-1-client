@@ -12,6 +12,14 @@ import SEASON_1 from '../assets/season-offers/season-offers-1.png'
 //* BEST SELLERS
 import BEST_SELLER_1 from '../assets/best-sellers/best-sellers-1.png'
 
+import {
+	FaTwitter,
+	FaYoutube,
+	FaFacebook,
+	FaInstagram,
+	FaTiktok,
+} from 'react-icons/fa'
+
 const CATEGORIES_PHOTOS = [
 	{
 		mainText: 'Live at max potential',
@@ -162,6 +170,53 @@ const FOOTER_LINKS = [
 	},
 ]
 
+const SOCIAL_LINKS = [
+	{
+		name: 'Twitter',
+		SocialIcon: FaTwitter,
+		url: '/',
+	},
+	{
+		name: 'Instagram',
+		SocialIcon: FaInstagram,
+		url: '/',
+	},
+	{
+		name: 'Youtube',
+		SocialIcon: FaYoutube,
+		url: '/',
+	},
+	{
+		name: 'Facebook',
+		SocialIcon: FaFacebook,
+		url: '/',
+	},
+	{
+		name: 'Tiktok',
+		SocialIcon: FaTiktok,
+		url: '/',
+	},
+]
+
+const FOOTER_INFO_LINKS = [
+	{
+		name: 'Guides',
+		url: '/',
+	},
+	{
+		name: 'Terms of use',
+		url: '/',
+	},
+	{
+		name: 'Terms of sale',
+		url: '/',
+	},
+	{
+		name: 'glu privacy policy',
+		url: '/',
+	},
+]
+
 export {
 	HERO_BANNER,
 	CATEGORIES_PHOTOS,
@@ -169,4 +224,6 @@ export {
 	SEASON_OFFERS_IMGS,
 	BEST_SELLERS,
 	FOOTER_LINKS,
+	SOCIAL_LINKS,
+	FOOTER_INFO_LINKS,
 }
