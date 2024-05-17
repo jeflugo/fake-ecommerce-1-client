@@ -18,11 +18,11 @@ function CategoriesSection() {
 					</div>
 				</Container>
 			</div>
-			<div>
+			<div className='flex-wrap md:flex'>
 				{CATEGORIES_PHOTOS.map(({ mainText, subText, img, url }, index) => (
-					<div key={index} className='relative'>
+					<div key={index} className='relative mb-0 md:w-1/2'>
 						<img src={img} className='w-full' />
-						<div className='absolute left-0 top-0 h-full w-full bg-black opacity-50'></div>
+						<div className='absolute left-0 top-0 h-full w-full bg-black opacity-50' />
 						<div className='absolute bottom-16 z-10 w-full'>
 							<Container>
 								<div className='mb-3 text-white'>
