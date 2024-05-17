@@ -26,7 +26,7 @@ function BestSellers() {
 						</div>
 					))}
 				</div>
-				<div className='absolute bottom-60 w-full'>
+				<div className='absolute top-0 flex h-full w-full items-center'>
 					<div className='mx-auto flex w-11/12 justify-between'>
 						<BiChevronLeft className='h-9 w-9 rounded-full bg-gray-500 opacity-70' />
 						<BiChevronRight className='h-9 w-9 rounded-full bg-gray-500 opacity-70' />
