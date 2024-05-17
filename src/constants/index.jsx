@@ -1,4 +1,12 @@
-import HERO_BANNER from '../assets/hero-banner.png'
+import HERO_BANNER_SM from '../assets/hero-banner-sm.png'
+import HERO_BANNER_MD from '../assets/hero-banner-md.png'
+import HERO_BANNER_LG from '../assets/hero-banner-lg.png'
+
+const HERO_BANNERS = {
+	SM: HERO_BANNER_SM,
+	MD: HERO_BANNER_MD,
+	LG: HERO_BANNER_LG,
+}
 
 //* CATEGORIES
 import MEN_CAT_IMG from '../assets/categories/men-category.png'
@@ -8,6 +16,10 @@ import POWER_CAT_IMG from '../assets/categories/power-category.png'
 
 //* SEASON OFFERS
 import SEASON_1 from '../assets/season-offers/season-offers-1.png'
+import SEASON_2 from '../assets/season-offers/season-offers-2.jpg'
+import SEASON_3 from '../assets/season-offers/season-offers-3.jpg'
+import SEASON_4 from '../assets/season-offers/season-offers-4.jpg'
+import SEASON_5 from '../assets/season-offers/season-offers-5.jpg'
 
 //* BEST SELLERS
 import BEST_SELLER_1 from '../assets/best-sellers/best-sellers-1.png'
@@ -62,7 +74,7 @@ const SEASON_OFFERS = [
 	},
 ]
 
-const SEASON_OFFERS_IMGS = [SEASON_1]
+const SEASON_OFFERS_IMGS = [SEASON_1, SEASON_2, SEASON_3, SEASON_4, SEASON_5]
 
 const BEST_SELLERS = [
 	{
@@ -218,7 +230,7 @@ const FOOTER_INFO_LINKS = [
 ]
 
 export {
-	HERO_BANNER,
+	HERO_BANNERS,
 	CATEGORIES_PHOTOS,
 	SEASON_OFFERS,
 	SEASON_OFFERS_IMGS,
