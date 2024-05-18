@@ -4,20 +4,14 @@ import { SEASON_OFFERS, SEASON_OFFERS_IMGS } from '../../constants'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 import { useState } from 'react'
 
+import { motion } from 'framer-motion'
+
 function SeasonOffers() {
 	const [active, setActive] = useState(1)
 
-	const backCarousel = () =>
-		setActive(prev => {
-			if (prev === 0) return
-			return prev - 1
-		})
+	const backCarousel = () => setActive(prev => prev - 1)
 
-	const fowardCarousel = () =>
-		setActive(prev => {
-			if (prev === SEASON_OFFERS_IMGS.length) return
-			return prev + 1
-		})
+	const fowardCarousel = () => setActive(prev => prev + 1)
 
 	return (
 		<div>
@@ -53,40 +47,35 @@ function SeasonOffers() {
 							if (index === active)
 								if (active - 1 < 0) {
 									return (
-										<>
-											<div key={index} className='h-[200px] w-[150px]' />
-											<img
-												key={index}
-												src={img}
-												className='h-[400px] w-[300px] rounded'
-											/>
-										</>
+										<div
+											key={index}
+											className='scale flex items-center transition-all'
+										>
+											<div className='h-[200px] w-[150px]' />
+											<motion.img src={img} className='h-[400px] w-[300px] rounded' />
+										</div>
 									)
 								} else if (active + 1 === SEASON_OFFERS_IMGS.length) {
 									return (
-										<>
-											<img
-												key={index}
-												src={img}
-												className='h-[400px] w-[300px]'
-											/>
-											<div
-												key={index}
-												className='h-[200px] w-[150px] rounded'
-											/>
-										</>
+										<div
+											key={index}
+											className='flex items-center'
+										>
+											<motion.img src={img} className='h-[400px] w-[300px]' />
+											<div className='h-[200px] w-[150px] rounded' />
+										</div>
 									)
 								} else
 									return (
-										<img
+										<motion.img
 											key={index}
 											src={img}
-											className='h-[400px] w-[300px] rounded'
+											className='h-[400px] w-[300px] rounded '
 										/>
 									)
 							if ((index === active - 1) | (index === active + 1))
 								return (
-									<img
+									<motion.img
 										key={index}
 										src={img}
 										className='h-[200px] w-[150px] rounded'
@@ -101,14 +90,24 @@ function SeasonOffers() {
 				/>
 				<div className='absolute top-0 flex h-full w-full items-center'>
 					<div className='mx-auto flex w-11/12 justify-between'>
-						<BiChevronLeft
-							onClick={backCarousel}
-							className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
-						/>
-						<BiChevronRight
-							onClick={fowardCarousel}
-							className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
-						/>
+						<button
+							disabled={active === 0 ? true : false}
+							className='disabled:opacity-30'
+						>
+							<BiChevronLeft
+								onClick={backCarousel}
+								className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
+							/>
+						</button>
+						<button
+							disabled={active === SEASON_OFFERS_IMGS.length - 1 ? true : false}
+							className='disabled:opacity-30'
+						>
+							<BiChevronRight
+								onClick={fowardCarousel}
+								className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
+							/>
+						</button>
 					</div>
 				</div>
 			</div>
