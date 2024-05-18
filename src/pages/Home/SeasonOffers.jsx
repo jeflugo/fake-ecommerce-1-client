@@ -2,12 +2,22 @@ import { Link } from 'react-router-dom'
 import Container from '../../components/Container'
 import { SEASON_OFFERS, SEASON_OFFERS_IMGS } from '../../constants'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 import { motion } from 'framer-motion'
 
 function SeasonOffers() {
 	const [active, setActive] = useState(1)
+
+	const [imgs, setImgs] = useState()
+
+	useEffect(() => {
+		setImgs({
+			prev: SEASON_OFFERS_IMGS[active - 1],
+			curr: SEASON_OFFERS_IMGS[active],
+			next: SEASON_OFFERS_IMGS[active + 1],
+		})
+	}, [active])
 
 	const backCarousel = () => setActive(prev => prev - 1)
 
@@ -43,75 +53,57 @@ function SeasonOffers() {
 				</div>
 				<div className='hidden w-full justify-center py-4 md:flex'>
 					<div className='flex items-center'>
-						{SEASON_OFFERS_IMGS.map((img, index) => {
-							if (index === active)
-								if (active - 1 < 0) {
-									return (
-										<div
-											key={index}
-											className='scale flex items-center transition-all'
-										>
-											<div className='h-[200px] w-[150px]' />
-											<motion.img
-												src={img}
-												className='h-[400px] w-[300px] rounded shadow-lg shadow-white'
-											/>
-										</div>
-									)
-								} else if (active + 1 === SEASON_OFFERS_IMGS.length) {
-									return (
-										<div key={index} className='flex items-center'>
-											<motion.img
-												src={img}
-												className='h-[400px] w-[300px] shadow-lg shadow-white'
-											/>
-											<div className='h-[200px] w-[150px] rounded' />
-										</div>
-									)
-								} else
-									return (
-										<motion.img
-											key={index}
-											src={img}
-											className='h-[400px] w-[300px] rounded shadow-2xl shadow-white'
-										/>
-									)
-							if ((index === active - 1) | (index === active + 1))
-								return (
+						{imgs && (
+							<>
+								{imgs.prev ? (
 									<motion.img
-										key={index}
-										src={img}
+										src={imgs.prev}
 										className='h-[200px] w-[150px] rounded'
 									/>
-								)
-						})}
+								) : (
+									<div className='h-[200px] w-[150px] rounded' />
+								)}
+								<motion.img
+									src={imgs.curr}
+									className='h-[400px] w-[300px] rounded'
+								/>
+								{imgs.next ? (
+									<motion.img
+										src={imgs.next}
+										className='h-[200px] w-[150px] rounded'
+									/>
+								) : (
+									<div className='h-[200px] w-[150px] rounded' />
+								)}
+							</>
+						)}
 					</div>
 				</div>
 				<img
-					src={SEASON_OFFERS_IMGS[active]}
+					src={imgs?.curr}
 					className='absolute top-0 -z-10 h-full w-full blur-lg'
 				/>
-				<div className='absolute top-0 flex h-full w-full items-center'>
-					<div className='mx-auto flex w-11/12 justify-between'>
-						<button
-							disabled={active === 0 ? true : false}
-							className='disabled:opacity-30'
-						>
-							<BiChevronLeft
-								onClick={backCarousel}
-								className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
-							/>
-						</button>
-						<button
-							disabled={active === SEASON_OFFERS_IMGS.length - 1 ? true : false}
-							className='disabled:opacity-30'
-						>
-							<BiChevronRight
-								onClick={fowardCarousel}
-								className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
-							/>
-						</button>
-					</div>
+				<div className='absolute top-0 ml-6 flex h-full items-center'>
+					<button
+						disabled={active === 0 ? true : false}
+						className='disabled:opacity-30'
+					>
+						<BiChevronLeft
+							onClick={backCarousel}
+							className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
+						/>
+					</button>
+				</div>
+				<div className='absolute right-0 top-0 mr-6 flex h-full items-center'>
+					<button
+						disabled={active === SEASON_OFFERS_IMGS.length - 1 ? true : false}
+						className='disabled:opacity-30'
+					>
+						<BiChevronRight
+							onClick={fowardCarousel}
+							className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
+						/>
+					</button>
 				</div>
 			</div>
 		</div>
