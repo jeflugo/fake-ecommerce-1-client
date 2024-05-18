@@ -52,16 +52,19 @@ function SeasonOffers() {
 											className='scale flex items-center transition-all'
 										>
 											<div className='h-[200px] w-[150px]' />
-											<motion.img src={img} className='h-[400px] w-[300px] rounded' />
+											<motion.img
+												src={img}
+												className='h-[400px] w-[300px] rounded shadow-lg shadow-white'
+											/>
 										</div>
 									)
 								} else if (active + 1 === SEASON_OFFERS_IMGS.length) {
 									return (
-										<div
-											key={index}
-											className='flex items-center'
-										>
-											<motion.img src={img} className='h-[400px] w-[300px]' />
+										<div key={index} className='flex items-center'>
+											<motion.img
+												src={img}
+												className='h-[400px] w-[300px] shadow-lg shadow-white'
+											/>
 											<div className='h-[200px] w-[150px] rounded' />
 										</div>
 									)
@@ -70,7 +73,7 @@ function SeasonOffers() {
 										<motion.img
 											key={index}
 											src={img}
-											className='h-[400px] w-[300px] rounded '
+											className='h-[400px] w-[300px] rounded shadow-2xl shadow-white'
 										/>
 									)
 							if ((index === active - 1) | (index === active + 1))
