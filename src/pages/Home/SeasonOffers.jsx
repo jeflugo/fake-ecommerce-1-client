@@ -4,7 +4,8 @@ import { SEASON_OFFERS, SEASON_OFFERS_IMGS } from '../../constants'
 import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 import { useEffect, useState } from 'react'
 
-import { AnimatePresence, motion, useAnimate } from 'framer-motion'
+import { motion, useAnimate } from 'framer-motion'
+import { Carousel } from '@material-tailwind/react'
 
 function SeasonOffers() {
 	const [active, setActive] = useState(1)
@@ -47,10 +48,36 @@ function SeasonOffers() {
 			</div>
 			<div className='relative'>
 				<div className='md:hidden'>
-					{SEASON_OFFERS_IMGS.map((img, index) => {
-						if (index === 1)
-							return <img key={index} src={img} className='w-full' />
-					})}
+					<Carousel
+						prevArrow={({ handlePrev, activeIndex }) => (
+							<button
+								disabled={activeIndex === 0 ? true : false}
+								className='absolute top-0 ml-6 flex h-full items-center disabled:opacity-30'
+							>
+								<BiChevronLeft
+									className='h-9 w-9 rounded-full bg-gray-500 opacity-70'
+									onClick={handlePrev}
+								/>
+							</button>
+						)}
+						nextArrow={({ handleNext, activeIndex }) => (
+							<button
+								disabled={
+									activeIndex === SEASON_OFFERS_IMGS.length - 1 ? true : false
+								}
+								className='absolute right-0 top-0 mr-6 flex h-full items-center disabled:opacity-30'
+							>
+								<BiChevronRight
+									className='h-9 w-9 rounded-full bg-gray-500 opacity-70'
+									onClick={handleNext}
+								/>
+							</button>
+						)}
+					>
+						{SEASON_OFFERS_IMGS.map((img, index) => (
+							<img key={index} src={img} className='h-[550px] w-full' />
+						))}
+					</Carousel>
 				</div>
 				<div className='hidden w-full justify-center py-4 md:flex'>
 					<div className='flex items-center' ref={scope}>
@@ -82,9 +109,9 @@ function SeasonOffers() {
 				</div>
 				<img
 					src={imgs?.curr}
-					className='absolute top-0 -z-10 h-full w-full blur-lg'
+					className='absolute top-0 -z-10 hidden h-full w-full blur-lg md:block'
 				/>
-				<div className='absolute top-0 ml-6 flex h-full items-center'>
+				<div className='absolute top-0 ml-6 hidden h-full items-center md:flex'>
 					<button
 						disabled={active === 0 ? true : false}
 						className='disabled:opacity-30'
@@ -101,7 +128,7 @@ function SeasonOffers() {
 						/>
 					</button>
 				</div>
-				<div className='absolute right-0 top-0 mr-6 flex h-full items-center'>
+				<div className='absolute right-0 top-0 mr-6 hidden h-full items-center md:flex'>
 					<button
 						disabled={active === SEASON_OFFERS_IMGS.length - 1 ? true : false}
 						className='disabled:opacity-30'
