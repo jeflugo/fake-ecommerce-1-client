@@ -3,24 +3,20 @@ import { client } from '../lib/client'
 
 const Context = createContext()
 
-const sm = 360,
-	md = 760,
-	lg = 1240
+const sm = 330,
+	md = 720,
+	lg = 1000
 
 export default function StateContext({ children }) {
 	const [products, setProducts] = useState()
 	const [width, setWidth] = useState(window.innerWidth)
 
 	useEffect(() => {
-		const handleResize = () => {
-			setWidth(window.innerWidth)
-		}
+		const handleResize = () => setWidth(window.innerWidth)
 
 		window.addEventListener('resize', handleResize)
 
-		return () => {
-			window.removeEventListener('resize', handleResize)
-		}
+		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
 	useEffect(() => {
