@@ -5,7 +5,7 @@ import { BiChevronLeft, BiChevronRight } from 'react-icons/bi'
 import { useEffect, useState } from 'react'
 
 import { motion, useAnimate } from 'framer-motion'
-import { Carousel } from '@material-tailwind/react'
+import { Button, Carousel } from '@material-tailwind/react'
 import { useStateContext } from '../../context/StateContext'
 
 function SeasonOffers() {
@@ -29,7 +29,7 @@ function SeasonOffers() {
 	const fowardCarousel = () => setActive(prev => prev + 1)
 
 	return (
-		<div>
+		<div className='md:mb-6'>
 			<div className='py-4'>
 				<Container>
 					<div>
@@ -37,12 +37,10 @@ function SeasonOffers() {
 							<h2 className='text-3xl font-medium'>CHECK THE SEASON OFFERS</h2>
 							<p className='text-lg'>The N°1 Shoes store by times magazine</p>
 						</div>
-						<div className='flex flex-col gap-2'>
+						<div className='flex flex-col flex-wrap gap-2 md:flex-row'>
 							{SEASON_OFFERS.map(({ buttonText, url }, index) => (
 								<Link key={index} to={url}>
-									<button className='rounded-md bg-black px-2 py-1 text-gray-50'>
-										{buttonText}
-									</button>
+									<Button size='sm'>{buttonText}</Button>
 								</Link>
 							))}
 						</div>
@@ -91,22 +89,36 @@ function SeasonOffers() {
 										{imgs.prev ? (
 											<motion.img
 												src={imgs.prev}
-												className='box h-[200px] w-[150px] rounded '
+												className='box h-[200px] w-[150px] rounded xl:h-[350px] xl:w-[270px]'
+												onClick={() => {
+													animate('.box', {
+														opacity: [0, 1],
+														scale: [0.3, 1],
+													})
+													backCarousel()
+												}}
 											/>
 										) : (
-											<motion.img className='box invisible h-[200px] w-[150px]' />
+											<motion.img className='box invisible h-[200px] w-[150px] xl:h-[350px] xl:w-[270px]' />
 										)}
 										<motion.img
 											src={imgs.curr}
-											className='box h-[400px] w-[300px] rounded '
+											className='box h-[400px] w-[300px] rounded xl:h-[680px] xl:w-[480px]'
 										/>
 										{imgs.next ? (
 											<motion.img
 												src={imgs.next}
-												className='box h-[200px] w-[150px] rounded '
+												className='box h-[200px] w-[150px] rounded xl:h-[350px] xl:w-[270px]'
+												onClick={() => {
+													animate('.box', {
+														opacity: [0, 1],
+														scale: [0.3, 1],
+													})
+													fowardCarousel()
+												}}
 											/>
 										) : (
-											<motion.img className='box invisible h-[200px] w-[150px]' />
+											<motion.img className='box invisible h-[200px] w-[150px] xl:h-[350px] xl:w-[270px]' />
 										)}
 									</>
 								)}
@@ -116,7 +128,7 @@ function SeasonOffers() {
 							src={imgs?.curr}
 							className='absolute top-0 -z-10 h-full w-full blur-lg'
 						/>
-						<div className='absolute top-0 ml-6 flex h-full items-center'>
+						<div className='absolute top-0 ml-6 flex h-full items-center lg:ml-16'>
 							<button
 								disabled={active === 0 ? true : false}
 								className='disabled:opacity-30'
@@ -129,11 +141,11 @@ function SeasonOffers() {
 										})
 										backCarousel()
 									}}
-									className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
+									className={`h-9 w-9 rounded-full bg-gray-500 opacity-70 lg:h-12 lg:w-12`}
 								/>
 							</button>
 						</div>
-						<div className='absolute right-0 top-0 mr-6 flex h-full items-center'>
+						<div className='absolute right-0 top-0 mr-6 flex h-full items-center lg:mr-16'>
 							<button
 								disabled={
 									active === SEASON_OFFERS_IMGS.length - 1 ? true : false
@@ -148,7 +160,7 @@ function SeasonOffers() {
 										})
 										fowardCarousel()
 									}}
-									className={`h-9 w-9 rounded-full bg-gray-500 opacity-70`}
+									className={`h-9 w-9 rounded-full bg-gray-500 opacity-70 lg:h-12 lg:w-12`}
 								/>
 							</button>
 						</div>
