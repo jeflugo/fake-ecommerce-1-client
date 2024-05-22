@@ -7,6 +7,7 @@ export const client = createClient({
 	apiVersion: '2024-05-20',
 	useCdn: true,
 	token: import.meta.env.VITE_PUBLIC_SANITY_TOKEN,
+	ignoreBrowserTokenWarning: true,
 })
 
 const builder = imageUrlBuilder(client)
