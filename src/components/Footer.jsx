@@ -14,7 +14,12 @@ function Footer() {
 								<ul className='text-sm text-gray-600'>
 									{values.map(({ name, url }, index) => (
 										<li key={index}>
-											<Link to={url}>{name}</Link>
+											<Link
+												to={url}
+												className='transition-all hover:opacity-50'
+											>
+												{name}
+											</Link>
 										</li>
 									))}
 								</ul>
@@ -28,11 +33,11 @@ function Footer() {
 								href={url}
 								target='_blank'
 								rel='noopener noreferrer'
-								className='block md:mb-2 '
+								className='block md:mb-2'
 							>
 								<SocialIcon
 									title={name}
-									className='h-8 w-8 rounded-full bg-gray-900 p-2'
+									className='h-8 w-8 rounded-full bg-gray-900 p-2 transition-all hover:opacity-50'
 								/>
 							</a>
 						))}
@@ -40,7 +45,11 @@ function Footer() {
 				</div>
 				<div className='mb-10 flex flex-wrap justify-between gap-3 md:justify-end'>
 					{FOOTER_INFO_LINKS.map(({ name, url }, index) => (
-						<Link key={index} to={url} className='text-sm text-gray-600'>
+						<Link
+							key={index}
+							to={url}
+							className='text-sm text-gray-600 transition-all hover:opacity-50'
+						>
 							{name}
 						</Link>
 					))}
