@@ -3,17 +3,39 @@ import { client } from '../lib/client'
 
 const Context = createContext()
 
+const sm = 360,
+	md = 760,
+	lg = 1240
+
 export default function StateContext({ children }) {
 	const [products, setProducts] = useState()
+	const [width, setWidth] = useState(window.innerWidth)
+
+	useEffect(() => {
+		const handleResize = () => {
+			setWidth(window.innerWidth)
+		}
+
+		window.addEventListener('resize', handleResize)
+
+		return () => {
+			window.removeEventListener('resize', handleResize)
+		}
+	}, [])
 
 	useEffect(() => {
 		const productsQuery = '*[_type=="product"]'
 
 		client.fetch(productsQuery).then(data => {
+			console.log(data)
 			setProducts(data)
 		})
 	}, [])
-	return <Context.Provider value={{ products }}>{children}</Context.Provider>
+	return (
+		<Context.Provider value={{ sm, md, lg, width, products }}>
+			{children}
+		</Context.Provider>
+	)
 }
 
 export const useStateContext = () => useContext(Context)
