@@ -61,17 +61,43 @@ function BestSellers() {
 				</Carousel>
 			)}
 			{bestSellers && width > md && (
-				<div>
-					{bestSellers.map(({ images, name, slug }, index) => (
-						<div key={index} className='relative'>
-							<Link to={`/store/${slug.current}`}>
-								<img src={urlFor(images[0])} className='w-full' />
+				<div className='relative flex h-[400px] justify-end'>
+					<div className='absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-gray-500' />
+					<div className='absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-gray-500' />
+					<div className='hide-scrollbar h-[100vw] w-[400px] origin-top-right translate-y-[400px] rotate-90 overflow-y-scroll scroll-smooth'>
+						{bestSellers.map(({ images, name, slug }, index) => (
+							<Link
+								key={index}
+								className='relative block h-[400px] w-[400px] -rotate-90'
+								to={`/store/${slug.current}`}
+							>
+								<img
+									key={index}
+									src={urlFor(images[0])}
+									className='h-full w-full'
+								/>
+								<h3 className='absolute bottom-6 z-10 w-full text-center text-xl font-medium'>
+									{name}
+								</h3>
 							</Link>
-							<h3 className='absolute bottom-9 w-full text-center text-2xl font-medium'>
-								{name}
-							</h3>
-						</div>
-					))}
+						))}
+						{bestSellers.map(({ images, name, slug }, index) => (
+							<Link
+								key={index}
+								className='relative block h-[400px] w-[400px] -rotate-90'
+								to={`/store/${slug.current}`}
+							>
+								<img
+									key={index}
+									src={urlFor(images[0])}
+									className='h-full w-full'
+								/>
+								<h3 className='absolute bottom-6 z-10 w-full text-center text-xl font-medium'>
+									{name}
+								</h3>
+							</Link>
+						))}
+					</div>
 				</div>
 			)}
 		</div>
