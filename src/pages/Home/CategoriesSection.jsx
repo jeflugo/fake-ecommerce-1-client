@@ -1,3 +1,4 @@
+import { Button } from '@material-tailwind/react'
 import Container from '../../components/Container'
 import { CATEGORIES_PHOTOS } from '../../constants'
 import { Link } from 'react-router-dom'
@@ -12,9 +13,7 @@ function CategoriesSection() {
 							<h2 className='text-3xl font-medium'>YOUR BEST CHOICE</h2>
 							<p className='text-lg'>The N°1 Shoes store by times magazine</p>
 						</div>
-						<button className='rounded-md bg-black px-3 py-2 text-lg text-gray-50'>
-							Shop now
-						</button>
+						<Button>Shop now</Button>
 					</div>
 				</Container>
 			</div>
@@ -30,9 +29,11 @@ function CategoriesSection() {
 									<p>{subText}</p>
 								</div>
 								<Link to={url}>
-									<button className='rounded bg-white px-2 py-1 font-medium'>
+									<Button color='white' size='sm'>
 										Explore
-									</button>
+									</Button>
+									{/* <button className='rounded bg-white px-2 py-1 font-medium'>
+									</button> */}
 								</Link>
 							</Container>
 						</div>
