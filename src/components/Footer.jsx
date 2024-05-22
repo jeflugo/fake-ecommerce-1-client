@@ -6,31 +6,39 @@ function Footer() {
 	return (
 		<div className='bg-black py-7 text-gray-50'>
 			<Container>
-				<div className='mb-5 flex flex-wrap gap-5'>
-					{FOOTER_LINKS.map(({ name, values }, index) => (
-						<div key={index}>
-							<h4 className='mb-1 font-medium '>{name}</h4>
-							<ul className='text-sm text-gray-600'>
-								{values.map(({ name, url }, index) => (
-									<li key={index}>
-										<Link to={url}>{name}</Link>
-									</li>
-								))}
-							</ul>
-						</div>
-					))}
+				<div className='md:mb-4 md:flex md:justify-between'>
+					<div className='mb-5 flex flex-wrap gap-5 md:gap-7 lg:gap-12'>
+						{FOOTER_LINKS.map(({ name, values }, index) => (
+							<div key={index}>
+								<h4 className='mb-1 font-medium '>{name}</h4>
+								<ul className='text-sm text-gray-600'>
+									{values.map(({ name, url }, index) => (
+										<li key={index}>
+											<Link to={url}>{name}</Link>
+										</li>
+									))}
+								</ul>
+							</div>
+						))}
+					</div>
+					<div className='py mb-5 flex flex-wrap gap-2 md:block'>
+						{SOCIAL_LINKS.map(({ name, SocialIcon, url }, index) => (
+							<a
+								key={index}
+								href={url}
+								target='_blank'
+								rel='noopener noreferrer'
+								className='block md:mb-2 '
+							>
+								<SocialIcon
+									title={name}
+									className='h-8 w-8 rounded-full bg-gray-900 p-2'
+								/>
+							</a>
+						))}
+					</div>
 				</div>
-				<div className='py mb-5 flex gap-2'>
-					{SOCIAL_LINKS.map(({ name, SocialIcon, url }, index) => (
-						<a key={index} href={url} target='_blank' rel='noopener noreferrer'>
-							<SocialIcon
-								title={name}
-								className='h-8 w-8 rounded-full bg-gray-900 p-2'
-							/>
-						</a>
-					))}
-				</div>
-				<div className='mb-10 flex flex-wrap justify-between gap-2'>
+				<div className='mb-10 flex flex-wrap justify-between gap-3 md:justify-end'>
 					{FOOTER_INFO_LINKS.map(({ name, url }, index) => (
 						<Link key={index} to={url} className='text-sm text-gray-600'>
 							{name}
