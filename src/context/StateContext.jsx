@@ -24,12 +24,9 @@ export default function StateContext({ children }) {
 	}, [])
 
 	useEffect(() => {
-		const productsQuery = '*[_type=="product"]'
+		const productsQuery = `*[_type=="product"]`
 
-		client.fetch(productsQuery).then(data => {
-			console.log(data)
-			setProducts(data)
-		})
+		client.fetch(productsQuery).then(data => setProducts(data))
 	}, [])
 	return (
 		<Context.Provider value={{ sm, md, lg, width, products }}>
