@@ -22,7 +22,7 @@ function Login() {
 				<title>glu - Register</title>
 			</Helmet>
 			<div className='py-6'>
-				<Container>
+				<Container cName='max-w-2xl'>
 					<h2 className='mb-6 text-center text-3xl'>Register</h2>
 					<form className='mb-6 flex flex-col gap-4'>
 						<input
