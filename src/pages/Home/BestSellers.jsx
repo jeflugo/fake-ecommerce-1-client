@@ -8,7 +8,7 @@ import { Carousel } from '@material-tailwind/react'
 
 function BestSellers() {
 	const [bestSellers, setBestSellers] = useState()
-	const { products } = useStateContext()
+	const { md, width, products } = useStateContext()
 
 	useEffect(() => {
 		if (products) setBestSellers(products)
@@ -23,42 +23,57 @@ function BestSellers() {
 					</div>
 				</Container>
 			</div>
-			<Carousel
-				prevArrow={({ handlePrev, activeIndex }) => (
-					<button
-						disabled={activeIndex === 0 ? true : false}
-						className='absolute top-0 ml-6 flex h-full items-center disabled:opacity-30'
-					>
-						<BiChevronLeft
-							className='h-9 w-9 rounded-full bg-gray-500 opacity-70'
-							onClick={handlePrev}
-						/>
-					</button>
-				)}
-				nextArrow={({ handleNext, activeIndex }) => (
-					<button
-						disabled={activeIndex === bestSellers.length - 1 ? true : false}
-						className='absolute right-0 top-0 mr-6 flex h-full items-center disabled:opacity-30'
-					>
-						<BiChevronRight
-							className='h-9 w-9 rounded-full bg-gray-500 opacity-70'
-							onClick={handleNext}
-						/>
-					</button>
-				)}
-			>
-				{bestSellers &&
-					bestSellers.map(({ images, name, slug }, index) => (
+			{bestSellers && width < md && (
+				<Carousel
+					prevArrow={({ handlePrev, firstIndex }) => (
+						<button
+							disabled={firstIndex}
+							className='absolute top-0 ml-6 flex h-full items-center disabled:opacity-30'
+						>
+							<BiChevronLeft
+								className='h-9 w-9 rounded-full bg-gray-500 opacity-70'
+								onClick={handlePrev}
+							/>
+						</button>
+					)}
+					nextArrow={({ handleNext, lastIndex }) => (
+						<button
+							disabled={lastIndex}
+							className='absolute right-0 top-0 mr-6 flex h-full items-center disabled:opacity-30'
+						>
+							<BiChevronRight
+								className='h-9 w-9 rounded-full bg-gray-500 opacity-70'
+								onClick={handleNext}
+							/>
+						</button>
+					)}
+				>
+					{bestSellers.map(({ images, name, slug }, index) => (
 						<div key={index} className='relative'>
-							<Link to={slug}>
+							<Link to={`/store/${slug.current}`}>
 								<img src={urlFor(images[0])} className='w-full' />
 							</Link>
-							<h3 className='absolute bottom-6 w-full text-center text-xl font-medium'>
+							<h3 className='absolute bottom-9 w-full text-center text-2xl font-medium'>
 								{name}
 							</h3>
 						</div>
 					))}
-			</Carousel>
+				</Carousel>
+			)}
+			{bestSellers && width > md && (
+				<div>
+					{bestSellers.map(({ images, name, slug }, index) => (
+						<div key={index} className='relative'>
+							<Link to={`/store/${slug.current}`}>
+								<img src={urlFor(images[0])} className='w-full' />
+							</Link>
+							<h3 className='absolute bottom-9 w-full text-center text-2xl font-medium'>
+								{name}
+							</h3>
+						</div>
+					))}
+				</div>
+			)}
 		</div>
 	)
 }
