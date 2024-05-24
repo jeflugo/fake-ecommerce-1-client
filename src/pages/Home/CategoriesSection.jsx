@@ -13,7 +13,9 @@ function CategoriesSection() {
 							<h2 className='text-3xl font-medium'>YOUR BEST CHOICE</h2>
 							<p className='text-lg'>The N°1 Shoes store by times magazine</p>
 						</div>
-						<Button>Shop now</Button>
+						<Link to='/store'>
+							<Button>Shop now</Button>
+						</Link>
 					</div>
 				</Container>
 			</div>
@@ -32,8 +34,6 @@ function CategoriesSection() {
 									<Button color='white' size='sm'>
 										Explore
 									</Button>
-									{/* <button className='rounded bg-white px-2 py-1 font-medium'>
-									</button> */}
 								</Link>
 							</Container>
 						</div>
