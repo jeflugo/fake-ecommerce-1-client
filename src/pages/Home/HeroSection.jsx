@@ -12,7 +12,7 @@ function HeroSection() {
 			{width > lg && <img src={LG} className='ml-10 w-1/2' />}
 
 			<div className='absolute lg:right-6 lg:top-0 lg:flex lg:h-full lg:items-center lg-max:bottom-0 lg-max:w-full lg-max:pb-10'>
-				<div className='mx-auto w-9/12 max-w-[420px] lg:mx-0'>
+				<div className='mx-auto w-9/12 max-w-[380px] lg:mx-0'>
 					<h1 className='mb-6 text-center text-4xl font-medium underline lg:text-left'>
 						NEW Air Force Max Storm
 					</h1>
