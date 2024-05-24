@@ -1,4 +1,6 @@
 import { Helmet } from 'react-helmet-async'
+import SearchBar from './SearchBar'
+import Container from '../../components/Container'
 
 function Store() {
 	return (
@@ -6,7 +8,15 @@ function Store() {
 			<Helmet>
 				<title>glu - store</title>
 			</Helmet>
-			Store
+			<div className='py-6'>
+				<Container>
+					<SearchBar />
+				</Container>
+				{/* <OrderBy/>
+					<Filters/>
+					<Products/>
+					<ShoppingCart/> */}
+			</div>
 		</div>
 	)
 }
