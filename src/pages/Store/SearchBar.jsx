@@ -11,7 +11,7 @@ function SearchBar() {
 	const resetText = () => setText('')
 	const toggleButton = () => setShowButton(!showButton)
 	return (
-		<form>
+		<form className='w-full'>
 			<label
 				className='relative block rounded border-2 border-black px-3 py-1'
 				onFocus={toggleButton}
@@ -22,7 +22,7 @@ function SearchBar() {
 					value={text}
 					onChange={handleChange}
 					placeholder='Search +1M Products'
-					className='w-full outline-none'
+					className='w-3/4 outline-none'
 				/>
 				{text !== '' && (
 					<div className='absolute right-0 top-0 mr-10 flex h-full items-center bg-white px-3'>
