@@ -229,6 +229,77 @@ const FOOTER_INFO_LINKS = [
 	},
 ]
 
+const SEARCH_FILTERS = [
+	{
+		name: 'men',
+		subs: [
+			{
+				name: 'all',
+				value: 'All shoes',
+			},
+			{
+				name: 'running',
+				value: 'Running',
+			},
+			{
+				name: 'climb',
+				value: 'Climbing',
+			},
+		],
+	},
+	{
+		name: 'women',
+		subs: [
+			{
+				name: 'all',
+				value: 'All shoes',
+			},
+			{
+				name: 'running',
+				value: 'Running',
+			},
+			{
+				name: 'climb',
+				value: 'Climbing',
+			},
+		],
+	},
+	{
+		name: 'kids',
+		subs: [
+			{
+				name: 'all',
+				value: 'All shoes',
+			},
+			{
+				name: 'running',
+				value: 'Running',
+			},
+			{
+				name: 'climb',
+				value: 'Climbing',
+			},
+		],
+	},
+	{
+		name: 'unisex',
+		subs: [
+			{
+				name: 'all',
+				value: 'All shoes',
+			},
+			{
+				name: 'running',
+				value: 'Running',
+			},
+			{
+				name: 'climb',
+				value: 'Climbing',
+			},
+		],
+	},
+]
+
 export {
 	HERO_BANNERS,
 	CATEGORIES_PHOTOS,
@@ -238,4 +309,5 @@ export {
 	FOOTER_LINKS,
 	SOCIAL_LINKS,
 	FOOTER_INFO_LINKS,
+	SEARCH_FILTERS,
 }
