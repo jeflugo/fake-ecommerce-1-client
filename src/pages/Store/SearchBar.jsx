@@ -11,7 +11,7 @@ function SearchBar() {
 	const resetText = () => setText('')
 	const toggleButton = () => setShowButton(!showButton)
 	return (
-		<form className='w-full'>
+		<form className='mb-4 w-full'>
 			<label
 				className='relative block rounded border-2 border-black px-3 py-1'
 				onFocus={toggleButton}

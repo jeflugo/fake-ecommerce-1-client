@@ -3,23 +3,21 @@ import SearchBar from './SearchBar'
 import Container from '../../components/Container'
 import OrderBy from './OrderBy'
 import Categories from './Categories'
+import Products from './Products'
 
 function Store() {
 	return (
 		<div>
 			<Helmet>
-				<title>glu - store</title>
+				<title>glu - Store</title>
 			</Helmet>
 			<div className='py-6'>
 				<Container>
 					<SearchBar />
+					<OrderBy />
+					<Categories />
 				</Container>
-				<OrderBy />
-				<Categories />
-				{/*
-					<Products/>
-					<ShoppingCart/> 
-				*/}
+				<Products />
 			</div>
 		</div>
 	)

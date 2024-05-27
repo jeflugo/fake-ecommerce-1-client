@@ -5,11 +5,10 @@ import {
 	MenuItem,
 	MenuList,
 } from '@material-tailwind/react'
-import Container from '../../components/Container'
 
 function OrderBy() {
 	return (
-		<Container cName='flex justify-end'>
+		<div className='flex justify-end'>
 			<Menu placement='bottom-end'>
 				<MenuHandler>
 					<Button variant='outlined' size='sm'>
@@ -22,7 +21,7 @@ function OrderBy() {
 					<MenuItem>Price down</MenuItem>
 				</MenuList>
 			</Menu>
-		</Container>
+		</div>
 	)
 }
 
