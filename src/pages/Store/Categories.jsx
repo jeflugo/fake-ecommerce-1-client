@@ -23,6 +23,7 @@ function Categories() {
 					className={`${mainOpen ? 'rotate-90' : 'rotate-0'} transition-all`}
 				/>
 			}
+			className='mb-4'
 		>
 			<AccordionHeader
 				onClick={handleMainOpen}

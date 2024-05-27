@@ -30,7 +30,7 @@ function SeasonOffers() {
 
 	return (
 		<div className='md:mb-6'>
-			<div className='py-4'>
+			<div className='pb-12 pt-4'>
 				<Container>
 					<div>
 						<div className='mb-3'>

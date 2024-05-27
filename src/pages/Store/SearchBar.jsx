@@ -13,7 +13,7 @@ function SearchBar() {
 	return (
 		<form className='mb-4 w-full'>
 			<label
-				className='relative block rounded border-2 border-black px-3 py-1'
+				className='relative block rounded border-2 border-gray-700 px-3 py-1 focus-within:border-black'
 				onFocus={toggleButton}
 				onBlur={toggleButton}
 			>

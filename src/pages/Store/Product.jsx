@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom'
 function Product(productInfo) {
 	const { name, price, images, slug } = productInfo
 	return (
-		<div className='relative max-w-96'>
-			<div className='absolute right-0 top-0 flex justify-end px-10 pt-6'>
+		<div className='relative max-w-[360px]'>
+			<div className='absolute right-0 top-0 flex justify-end px-6 pt-6'>
 				<div className='flex gap-2'>
 					<BiHeart
 						size={23}
@@ -21,7 +21,7 @@ function Product(productInfo) {
 			<Link to={`/store/${slug.current}`}>
 				<img src={urlFor(images[0])} className='w-full' />
 			</Link>
-			<h3 className='absolute bottom-0 flex w-full items-center justify-between px-10 pb-6 text-lg font-medium'>
+			<h3 className='absolute bottom-0 flex w-full items-center justify-between px-6 pb-6 text-lg font-medium'>
 				<span>{name}</span>
 				<span>${price}</span>
 			</h3>

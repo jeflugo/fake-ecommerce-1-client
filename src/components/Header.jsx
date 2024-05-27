@@ -6,7 +6,7 @@ import { Menu, MenuHandler, MenuList, MenuItem } from '@material-tailwind/react'
 
 function Header() {
 	return (
-		<header className='bg-white shadow-lg'>
+		<header className='bg-white py-3 shadow-lg'>
 			<Container>
 				<div className='flex items-center justify-between'>
 					<h2 className='mt-[-5px] text-3xl font-medium'>
