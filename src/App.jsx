@@ -6,8 +6,12 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Footer from './components/Footer'
 import PageNotFound from './pages/PageNotFound'
+import ShoppingCart from './components/ShoppingCart'
+import { useStateContext } from './context/StateContext'
+import ProductDetails from './pages/ProductDetails'
 
 function App() {
+	const { products } = useStateContext()
 	return (
 		<>
 			<Header />
@@ -18,9 +22,18 @@ function App() {
 					<Route path='/register' element={<Register />} />
 					<Route path='/login' element={<Login />} />
 					<Route path='*' element={<PageNotFound />} />
+					{products &&
+						products.map((product, index) => (
+							<Route
+								key={index}
+								path={`/store/${product.slug.current}`}
+								element={<ProductDetails {...product} />}
+							/>
+						))}
 				</Routes>
 			</main>
 			<Footer />
+			<ShoppingCart />
 		</>
 	)
 }
