@@ -14,7 +14,7 @@ function SeasonOffers() {
 
 	const [imgs, setImgs] = useState()
 
-	const { width, md, lg } = useStateContext()
+	const { width, md } = useStateContext()
 
 	useEffect(() => {
 		setImgs({
@@ -35,7 +35,6 @@ function SeasonOffers() {
 					<div>
 						<div className='mb-3'>
 							<h2 className='text-3xl font-medium'>CHECK THE SEASON OFFERS</h2>
-							<p className='text-lg'>The N°1 Shoes store by times magazine</p>
 						</div>
 						<div className='flex flex-col flex-wrap gap-2 md:flex-row'>
 							{SEASON_OFFERS.map(({ buttonText, url }, index) => (
