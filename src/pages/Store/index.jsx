@@ -1,6 +1,8 @@
 import { Helmet } from 'react-helmet-async'
 import SearchBar from './SearchBar'
 import Container from '../../components/Container'
+import OrderBy from './OrderBy'
+import Categories from './Categories'
 
 function Store() {
 	return (
@@ -12,10 +14,12 @@ function Store() {
 				<Container>
 					<SearchBar />
 				</Container>
-				{/* <OrderBy/>
-					<Filters/>
+				<OrderBy />
+				<Categories />
+				{/*
 					<Products/>
-					<ShoppingCart/> */}
+					<ShoppingCart/> 
+				*/}
 			</div>
 		</div>
 	)

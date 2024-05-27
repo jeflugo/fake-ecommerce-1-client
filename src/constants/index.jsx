@@ -229,7 +229,7 @@ const FOOTER_INFO_LINKS = [
 	},
 ]
 
-const SEARCH_FILTERS = [
+const SEARCH_CATEGORIES = [
 	{
 		name: 'men',
 		subs: [
@@ -309,5 +309,5 @@ export {
 	FOOTER_LINKS,
 	SOCIAL_LINKS,
 	FOOTER_INFO_LINKS,
-	SEARCH_FILTERS,
+	SEARCH_CATEGORIES,
 }
