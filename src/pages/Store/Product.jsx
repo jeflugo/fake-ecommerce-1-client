@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 function Product(productInfo) {
 	const { name, price, images, slug } = productInfo
 	return (
-		<div className='relative max-w-[360px]'>
+		<div className='relative max-w-[360px] lg:max-w-sm'>
 			<div className='absolute right-0 top-0 flex justify-end px-6 pt-6'>
 				<div className='flex gap-2'>
 					<BiHeart

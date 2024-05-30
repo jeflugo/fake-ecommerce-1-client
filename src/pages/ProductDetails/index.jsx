@@ -5,7 +5,7 @@ import { BiHeart, BiPlus } from 'react-icons/bi'
 import RalatedProducts from './RalatedProducts'
 
 function ProductDetails(product) {
-	const { name, price, images, slug,_id } = product
+	const { name, price, images, slug, _id } = product
 	const [currentImage, setCurrentImage] = useState(images[0])
 
 	const changeImage = index => setCurrentImage(images[index])
@@ -50,7 +50,7 @@ function ProductDetails(product) {
 					</div>
 				</div>
 			</div>
-			<RalatedProducts currentId={_id}/>
+			<RalatedProducts currentId={_id} />
 		</div>
 	)
 }

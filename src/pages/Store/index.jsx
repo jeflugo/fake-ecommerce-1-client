@@ -4,8 +4,11 @@ import Container from '../../components/Container'
 import OrderBy from './OrderBy'
 import Categories from './Categories'
 import Products from './Products'
+import { useStateContext } from '../../context/StateContext'
 
 function Store() {
+	const { width, lg } = useStateContext()
+
 	return (
 		<div>
 			<Helmet>
@@ -13,11 +16,22 @@ function Store() {
 			</Helmet>
 			<div className='py-6'>
 				<Container>
-					<SearchBar />
-					<OrderBy />
-					<Categories />
+					<div className='lg:max-w-[300px] lg:ml-auto'>
+						<SearchBar />
+						<OrderBy />
+						{width < lg && <Categories />}
+					</div>
 				</Container>
-				<Products />
+				{width < lg && <Products />}
+
+				{width > lg && (
+					<Container>
+						<div className='mt-6 flex gap-14'>
+							{width > lg && <Categories />}
+							<Products />
+						</div>
+					</Container>
+				)}
 			</div>
 		</div>
 	)
