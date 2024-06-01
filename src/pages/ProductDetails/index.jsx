@@ -3,12 +3,16 @@ import { urlFor } from '../../lib/client'
 import { Button } from '@material-tailwind/react'
 import { BiHeart, BiPlus } from 'react-icons/bi'
 import RalatedProducts from './RalatedProducts'
+import { motion } from 'framer-motion'
 
-function ProductDetails(product) {
-	const { name, price, images, slug, _id } = product
-	const [currentImage, setCurrentImage] = useState(images[0])
+function ProductDetails({ name, price, images, slug, _id }) {
+	const [visibleOverlay, setVisibleOverlay] = useState()
+	const [currentImage, setCurrentImage] = useState(0)
 
-	const changeImage = index => setCurrentImage(images[index])
+	const changeImage = index => {
+		setVisibleOverlay(index)
+		setCurrentImage(index)
+	}
 
 	return (
 		<div>
@@ -17,7 +21,7 @@ function ProductDetails(product) {
 				<div>
 					<div className='relative'>
 						<img
-							src={urlFor(currentImage)}
+							src={urlFor(images[currentImage])}
 							alt={slug.current}
 							className='mb-2 h-96 w-full'
 						/>
@@ -28,12 +32,17 @@ function ProductDetails(product) {
 					</div>
 					<div className='mb-4 flex flex-wrap gap-2'>
 						{images.map((img, index) => (
-							<img
+							<div
 								key={index}
-								src={urlFor(img)}
+								className='relative'
 								onMouseEnter={() => changeImage(index)}
-								className='w-12'
-							/>
+								onMouseLeave={() => setVisibleOverlay(undefined)}
+							>
+								<img src={urlFor(img)} className='w-12' />
+								{visibleOverlay === index && (
+									<motion.div className='absolute left-0 top-0 h-full w-full bg-black/20' />
+								)}
+							</div>
 						))}
 					</div>
 					<div className='ml-2 flex items-center gap-2'>
