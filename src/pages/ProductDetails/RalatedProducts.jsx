@@ -25,7 +25,8 @@ function RalatedProducts({ currentId }) {
 											key={index}
 											className='relative block h-[300px] w-[300px] -rotate-90'
 											to={`/store/${slug.current}`}
-											onMouseOver={() => seeOverlay(index)}
+											onMouseEnter={() => seeOverlay(index)}
+											onMouseLeave={() => seeOverlay(undefined)}
 										>
 											{visibleOverlay === index && (
 												<motion.div
