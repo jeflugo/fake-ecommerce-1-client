@@ -3,16 +3,14 @@ import Product from './Product'
 function Products() {
 	const { products } = useStateContext()
 	return (
-		// <div className='flex flex-wrap justify-center gap-4 lg:justify-start'>
-		<div className='grid place-items-center grid-cols-3 gap-2 w-full'>
+		<div className='grid w-full grid-cols-3 place-items-center gap-2'>
 			{products && (
 				<>
-					{products.map((product, index) => <Product key={index} {...product} />)}
-					{products.map((product, index) => <Product key={index} {...product} />)}
-					{products.map((product, index) => <Product key={index} {...product} />)}
+					{products.map((product, index) => (
+						<Product key={index} {...product} />
+					))}
 				</>
-			)				
-			}
+			)}
 		</div>
 	)
 }
