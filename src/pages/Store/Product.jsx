@@ -2,8 +2,7 @@ import { BiHeart, BiPlus } from 'react-icons/bi'
 import { urlFor } from '../../lib/client'
 import { Link } from 'react-router-dom'
 
-function Product(productInfo) {
-	const { name, price, images, slug } = productInfo
+function Product({ name, price, images, slug }) {
 	return (
 		<div className='relative max-w-[360px] lg:max-w-sm'>
 			<div className='absolute right-0 top-0 flex justify-end px-6 pt-6'>
