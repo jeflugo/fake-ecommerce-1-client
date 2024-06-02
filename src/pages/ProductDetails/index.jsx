@@ -1,45 +1,37 @@
 import { useState } from 'react'
-import { urlFor } from '../../lib/client'
-import { Button } from '@material-tailwind/react'
-import { BiHeart, BiPlus } from 'react-icons/bi'
 import RalatedProducts from './RalatedProducts'
 import Tags from './Tags'
 import Thumbnails from './Thumbnails'
 import Sizes from './Sizes'
+import MainImage from './MainImage'
+import Buttons from './Buttons'
+import Description from './Description'
 
 function ProductDetails({ name, price, tags, images, slug, sizes, _id }) {
 	const [currentImage, setCurrentImage] = useState(0)
 
 	return (
 		<div>
-			<div className='mx-auto max-w-96 py-6'>
-				<h2 className='ml-2 text-2xl font-medium'>{name}</h2>
+			<div className='mx-auto max-w-96 px-1 py-6 lg:max-w-[800px]'>
 				<div>
-					<div className='relative'>
-						<img
-							src={urlFor(images[currentImage])}
-							alt={slug.current}
-							className='mb-2 h-96 w-full'
-						/>
-						<BiHeart
-							className='absolute right-5 top-5 transition-all hover:scale-125 hover:fill-red-600 active:scale-100'
-							size={23}
-						/>
+					<h2 className='ml-2 text-2xl font-medium'>{name}</h2>
+				</div>
+				<div className='lg:flex lg:gap-4'>
+					<div className='lg:w-[400px]'>
+						<div className='relative'>
+							<MainImage
+								slug={slug}
+								images={images}
+								currentImage={currentImage}
+							/>
+							<Tags tags={tags} />
+						</div>
+						<Thumbnails images={images} setCurrentImage={setCurrentImage} />
 					</div>
-					<Tags tags={tags} />
-					<Thumbnails images={images} setCurrentImage={setCurrentImage} />
-					<Sizes />
-					<div className='ml-2 flex items-center gap-2'>
-						<Button className='flex gap-2'>
-							<span>Add to cart</span>
-							<span>
-								<BiPlus />
-							</span>
-						</Button>
-						<Button className='flex gap-2' variant='outlined'>
-							Buy now
-						</Button>
-						<h4 className='text-lg text-green-600'>${price}</h4>
+					<div className='lg:w-[300px]'>
+						<Description />
+						<Sizes sizes={sizes} />
+						<Buttons price={price} />
 					</div>
 				</div>
 			</div>
