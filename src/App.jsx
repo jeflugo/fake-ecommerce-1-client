@@ -21,7 +21,6 @@ function App() {
 					<Route path='/store' element={<Store />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/login' element={<Login />} />
-					<Route path='*' element={<PageNotFound />} />
 					{products &&
 						products.map((product, index) => (
 							<Route
@@ -30,6 +29,9 @@ function App() {
 								element={<ProductDetails {...product} />}
 							/>
 						))}
+
+					{/* 404p */}
+					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 			</main>
 			<Footer />
