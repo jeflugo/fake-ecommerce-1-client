@@ -3,16 +3,12 @@ import { urlFor } from '../../lib/client'
 import { Button } from '@material-tailwind/react'
 import { BiHeart, BiPlus } from 'react-icons/bi'
 import RalatedProducts from './RalatedProducts'
-import { motion } from 'framer-motion'
+import Tags from './Tags'
+import Thumbnails from './Thumbnails'
+import Sizes from './Sizes'
 
-function ProductDetails({ name, price, images, slug, _id }) {
-	const [visibleOverlay, setVisibleOverlay] = useState()
+function ProductDetails({ name, price, tags, images, slug, sizes, _id }) {
 	const [currentImage, setCurrentImage] = useState(0)
-
-	const changeImage = index => {
-		setVisibleOverlay(index)
-		setCurrentImage(index)
-	}
 
 	return (
 		<div>
@@ -30,21 +26,9 @@ function ProductDetails({ name, price, images, slug, _id }) {
 							size={23}
 						/>
 					</div>
-					<div className='mb-4 flex flex-wrap gap-2'>
-						{images.map((img, index) => (
-							<div
-								key={index}
-								className='relative'
-								onMouseEnter={() => changeImage(index)}
-								onMouseLeave={() => setVisibleOverlay(undefined)}
-							>
-								<img src={urlFor(img)} className='w-12' />
-								{visibleOverlay === index && (
-									<motion.div className='absolute left-0 top-0 h-full w-full bg-black/20' />
-								)}
-							</div>
-						))}
-					</div>
+					<Tags tags={tags} />
+					<Thumbnails images={images} setCurrentImage={setCurrentImage} />
+					<Sizes />
 					<div className='ml-2 flex items-center gap-2'>
 						<Button className='flex gap-2'>
 							<span>Add to cart</span>
