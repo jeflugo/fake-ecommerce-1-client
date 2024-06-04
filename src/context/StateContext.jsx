@@ -3,13 +3,15 @@ import { client } from '../lib/client'
 
 const Context = createContext()
 
-const sm = 330,
-	md = 720,
-	lg = 1000
+const sm = 330
+const md = 720
+const lg = 1000
 
 export default function StateContext({ children }) {
+	// const [user, setUser] = useState()
 	const [products, setProducts] = useState()
 	const [width, setWidth] = useState(window.innerWidth)
+	const [category, setCategory] = useState()
 
 	useEffect(() => {
 		const handleResize = () => setWidth(window.innerWidth)
@@ -24,8 +26,11 @@ export default function StateContext({ children }) {
 
 		client.fetch(productsQuery).then(data => setProducts(data))
 	}, [])
+
 	return (
-		<Context.Provider value={{ sm, md, lg, width, products }}>
+		<Context.Provider
+			value={{ sm, md, lg, width, category, setCategory, products }}
+		>
 			{children}
 		</Context.Provider>
 	)
