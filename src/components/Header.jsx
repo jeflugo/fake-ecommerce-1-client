@@ -1,8 +1,14 @@
 import { Link } from 'react-router-dom'
-import { AiOutlineShoppingCart, AiOutlineUser } from 'react-icons/ai'
+import { AiOutlineUser } from 'react-icons/ai'
 import Container from './Container'
 
-import { Menu, MenuHandler, MenuList, MenuItem } from '@material-tailwind/react'
+import {
+	Menu,
+	MenuHandler,
+	MenuList,
+	MenuItem,
+	Button,
+} from '@material-tailwind/react'
 
 function Header() {
 	return (
@@ -12,7 +18,7 @@ function Header() {
 					<h2 className='mt-[-5px] text-3xl font-medium'>
 						<Link to='/'>glu</Link>
 					</h2>
-					<div className='flex gap-4'>
+					<div className='flex items-center gap-4'>
 						<Menu>
 							<MenuHandler>
 								<div>
@@ -29,7 +35,9 @@ function Header() {
 							</MenuList>
 						</Menu>
 						<Link to='/store'>
-							<AiOutlineShoppingCart size={25} />
+							<Button size='sm'>
+								<span>Store</span>
+							</Button>
 						</Link>
 					</div>
 				</div>
