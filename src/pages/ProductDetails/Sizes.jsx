@@ -1,4 +1,4 @@
-import { Button, Tooltip } from '@material-tailwind/react'
+import { Button } from '@material-tailwind/react'
 import { useState } from 'react'
 
 export default function Sizes({ sizes }) {
@@ -11,13 +11,13 @@ export default function Sizes({ sizes }) {
 	}
 	return (
 		<div className='mb-2 lg:mb-8'>
-			<h3 className='mb-1 text-xl font-medium'>Choose yor size</h3>
+			<h3 className='mb-1 text-xl font-medium'>Available sizes</h3>
 			<div className='flex gap-2'>
 				{sizes
 					.sort((a, b) => a.size - b.size)
 					.map(({ size, stock }, index) => (
 						<Button
-							className={`${index === selectedSize && 'scale-105'}`}
+							className={`${index === selectedSize && 'scale-110'}`}
 							variant='outlined'
 							size='sm'
 							key={index}
@@ -25,7 +25,6 @@ export default function Sizes({ sizes }) {
 								selectSize(index)
 							}}
 						>
-							{/* <Tooltip >{stock}</Tooltip> */}
 							{size}
 						</Button>
 					))}
