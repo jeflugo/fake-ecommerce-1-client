@@ -30,7 +30,7 @@ function App() {
 							/>
 						))}
 
-					{/* 404p */}
+					{/* 404 */}
 					<Route path='*' element={<PageNotFound />} />
 				</Routes>
 			</main>
