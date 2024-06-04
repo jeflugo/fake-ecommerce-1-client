@@ -231,6 +231,15 @@ const FOOTER_INFO_LINKS = [
 
 const SEARCH_CATEGORIES = [
 	{
+		name: 'all',
+		subs: [
+			{
+				name: 'all',
+				value: 'Show all',
+			},
+		],
+	},
+	{
 		name: 'men',
 		subs: [
 			{
@@ -242,8 +251,20 @@ const SEARCH_CATEGORIES = [
 				value: 'Running',
 			},
 			{
-				name: 'climb',
-				value: 'Climbing',
+				name: 'basket',
+				value: 'Basket',
+			},
+			{
+				name: 'skate',
+				value: 'Skate',
+			},
+			{
+				name: 'boots',
+				value: 'Boots',
+			},
+			{
+				name: 'workout',
+				value: 'Workout',
 			},
 		],
 	},
@@ -259,8 +280,20 @@ const SEARCH_CATEGORIES = [
 				value: 'Running',
 			},
 			{
-				name: 'climb',
-				value: 'Climbing',
+				name: 'sandals',
+				value: 'Sandals',
+			},
+			{
+				name: 'soccer',
+				value: 'Soccer',
+			},
+			{
+				name: 'volleyball',
+				value: 'Volleyball',
+			},
+			{
+				name: 'workout',
+				value: 'Workout',
 			},
 		],
 	},
@@ -276,8 +309,8 @@ const SEARCH_CATEGORIES = [
 				value: 'Running',
 			},
 			{
-				name: 'climb',
-				value: 'Climbing',
+				name: 'soccer',
+				value: 'Soccer',
 			},
 		],
 	},
@@ -289,16 +322,22 @@ const SEARCH_CATEGORIES = [
 				value: 'All shoes',
 			},
 			{
+				name: 'basket',
+				value: 'Basket',
+			},
+			{
 				name: 'running',
 				value: 'Running',
 			},
 			{
-				name: 'climb',
-				value: 'Climbing',
+				name: 'golf',
+				value: 'Golf',
 			},
 		],
 	},
 ]
+
+const ORDER_BY_OPTIONS = ['Default', 'Newest', 'Price up', 'Price down']
 
 export {
 	HERO_BANNERS,
@@ -310,4 +349,5 @@ export {
 	SOCIAL_LINKS,
 	FOOTER_INFO_LINKS,
 	SEARCH_CATEGORIES,
+	ORDER_BY_OPTIONS,
 }
