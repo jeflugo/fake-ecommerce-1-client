@@ -5,19 +5,9 @@ function Products({ products, orderByOption }) {
 		<div className='grid w-full grid-cols-1 place-items-center gap-2 md:grid-cols-2 lg:grid-cols-3'>
 			{products && (
 				<>
-					{products
-						.sort((a, b) => {
-							if (orderByOption === 'Newest') {
-								const firstDate = new Date(a._createdAt)
-								const secondDate = new Date(b._createdAt)
-								return firstDate - secondDate
-							}
-							if (orderByOption === 'Price up') return b.price - a.price
-							if (orderByOption === 'Price down') return a.price - b.price
-						})
-						.map((product, index) => (
-							<Product key={index} {...product} />
-						))}
+					{products.map((product, index) => (
+						<Product key={index} {...product} />
+					))}
 				</>
 			)}
 		</div>
