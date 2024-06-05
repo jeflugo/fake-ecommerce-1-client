@@ -228,14 +228,6 @@ const SEARCH_CATEGORIES = [
 				name: 'all',
 				value: 'Show all',
 			},
-			{
-				name: 'offers',
-				value: 'Offers',
-			},
-			{
-				name: 'seasonal',
-				value: 'Seasonal',
-			},
 		],
 	},
 	{
