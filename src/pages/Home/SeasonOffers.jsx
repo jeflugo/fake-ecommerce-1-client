@@ -14,7 +14,7 @@ function SeasonOffers() {
 
 	const [imgs, setImgs] = useState()
 
-	const { width, md } = useStateContext()
+	const { width, md, setCategory } = useStateContext()
 
 	useEffect(() => {
 		setImgs({
@@ -37,11 +37,19 @@ function SeasonOffers() {
 							<h2 className='text-3xl font-medium'>CHECK THE SEASON OFFERS</h2>
 						</div>
 						<div className='flex flex-col flex-wrap gap-2 md:flex-row'>
-							{SEASON_OFFERS.map(({ buttonText, url }, index) => (
-								<Link key={index} to={url}>
-									<Button size='sm'>{buttonText}</Button>
-								</Link>
-							))}
+							{SEASON_OFFERS.map(
+								({ buttonText, mainCatName, subCatName, catIndex }, index) => (
+									<Link
+										key={index}
+										to='/store'
+										onClick={() => {
+											setCategory({ mainCatName, subCatName, catIndex })
+										}}
+									>
+										<Button size='sm'>{buttonText}</Button>
+									</Link>
+								),
+							)}
 						</div>
 					</div>
 				</Container>
