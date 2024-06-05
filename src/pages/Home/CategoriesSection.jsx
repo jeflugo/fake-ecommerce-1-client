@@ -20,7 +20,7 @@ function CategoriesSection() {
 				</Container>
 			</div>
 			<div className='flex-wrap md:flex'>
-				{CATEGORIES_PHOTOS.map(({ mainText, subText, img, url }, index) => (
+				{CATEGORIES_PHOTOS.map(({ mainText, subText, img }, index) => (
 					<div key={index} className='relative mb-0 md:w-1/2'>
 						<img src={img} className='w-full' />
 						<div className='absolute left-0 top-0 h-full w-full bg-black opacity-50' />
@@ -30,7 +30,7 @@ function CategoriesSection() {
 									<h3 className='text-3xl font-medium'>{mainText}</h3>
 									<p>{subText}</p>
 								</div>
-								<Link to={url}>
+								<Link to='/store'>
 									<Button color='white' size='sm'>
 										Explore
 									</Button>
