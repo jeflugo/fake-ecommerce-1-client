@@ -19,20 +19,35 @@ function Store() {
 	const [orderByOption, setOrderByOption] = useState(ORDER_BY_OPTIONS[0])
 
 	useEffect(() => {
-		let filtersQuery
+		let filtersQuery = ''
 		if (category) {
 			if (category.mainCatName !== 'all') {
-				filtersQuery = ` && tags match '${category.mainCatName}'`
-				if (category.subCatName !== 'all')
-					filtersQuery =
-						filtersQuery + ` && tags match '${category.subCatName}'`
+				filtersQuery += ` && tags match '${category.mainCatName}'`
+				if (category.subCatName === 'offers') {
+					filtersQuery += ` && discount > 0`
+				} else if (category.subCatName === 'seasonal') {
+					filtersQuery += ` && seasonDiscount > 0`
+				} else if (category.subCatName !== 'all') {
+					filtersQuery += ` && tags match '${category.subCatName}'`
+				}
 			}
 		}
 
-		const productsQuery = `*[_type=="product"${filtersQuery ? filtersQuery : ''}]{ name, price, images[0], slug, _createdAt }`
+		let orderByFilter = ''
+		if (orderByOption == 'Price up') {
+			orderByFilter += ` | order(price desc)`
+		}
+		if (orderByOption == 'Price down') {
+			orderByFilter += ` | order(price asc)`
+		}
+		if (orderByOption == 'Newest') {
+			orderByFilter += ` | order(_createdAt desc)`
+		}
+
+		const productsQuery = `*[_type=="product"${filtersQuery !== '' ? filtersQuery : ''}]${orderByFilter !== '' ? orderByFilter : ''} { name, price, images[0], slug, _createdAt }`
 
 		client.fetch(productsQuery).then(data => setShownProducts(data))
-	}, [category])
+	}, [category, orderByOption])
 
 	return (
 		<div>
@@ -51,19 +66,36 @@ function Store() {
 						{width < lg && <Categories />}
 					</div>
 				</Container>
-				{width < lg && shownProducts && (
-					<Products products={shownProducts} orderByOption={orderByOption} />
+				{width < lg && (
+					<>
+						{shownProducts && shownProducts.length !== 0 ? (
+							<Products
+								products={shownProducts}
+								orderByOption={orderByOption}
+							/>
+						) : (
+							<h2 className='mx-auto text-center text-2xl font-medium'>
+								No products were found for the &quot;{category.mainCatName}{' '}
+								{category.subCatName}&quot; category
+							</h2>
+						)}
+					</>
 				)}
 
 				{width > lg && (
 					<Container>
 						<div className='mt-6 flex gap-14'>
 							{width > lg && <Categories />}
-							{shownProducts && (
+							{shownProducts && shownProducts.length !== 0 ? (
 								<Products
 									products={shownProducts}
 									orderByOption={orderByOption}
 								/>
+							) : (
+								<h2 className='mx-auto text-center text-2xl font-medium'>
+									No products were found for the &quot;{category.mainCatName}{' '}
+									{category.subCatName}&quot; category
+								</h2>
 							)}
 						</div>
 					</Container>
