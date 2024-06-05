@@ -1,5 +1,4 @@
 import { useState, useEffect, createContext, useContext } from 'react'
-import { client } from '../lib/client'
 
 const Context = createContext()
 
@@ -8,8 +7,6 @@ const md = 720
 const lg = 1000
 
 export default function StateContext({ children }) {
-	// const [user, setUser] = useState()
-	const [products, setProducts] = useState()
 	const [width, setWidth] = useState(window.innerWidth)
 	const [category, setCategory] = useState()
 
@@ -21,16 +18,8 @@ export default function StateContext({ children }) {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
-	useEffect(() => {
-		const productsQuery = `*[_type=="product"]`
-
-		client.fetch(productsQuery).then(data => setProducts(data))
-	}, [])
-
 	return (
-		<Context.Provider
-			value={{ sm, md, lg, width, category, setCategory, products }}
-		>
+		<Context.Provider value={{ sm, md, lg, width, category, setCategory }}>
 			{children}
 		</Context.Provider>
 	)
