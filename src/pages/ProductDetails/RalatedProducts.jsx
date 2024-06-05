@@ -1,14 +1,20 @@
 import { motion } from 'framer-motion'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
-import { urlFor } from '../../lib/client'
+import { client, urlFor } from '../../lib/client'
 import { BiHeart, BiPlus } from 'react-icons/bi'
-import { useStateContext } from '../../context/StateContext'
 
 function RalatedProducts({ currentId }) {
 	const [visibleOverlay, setVisibleOverlay] = useState()
 	const seeOverlay = index => setVisibleOverlay(index)
-	const { products } = useStateContext()
+	const [products, setProducts] = useState()
+
+	useEffect(() => {
+		const productsQuery = `*[_type=="product"][0...7]{ images[0], name, price, _id }`
+
+		client.fetch(productsQuery).then(data => setProducts(data))
+	}, [])
+
 	return (
 		<div>
 			{products && (
@@ -18,13 +24,13 @@ function RalatedProducts({ currentId }) {
 						<div className='absolute left-0 top-0 z-10 h-full w-8 bg-gradient-to-r  from-gray-500 md:w-16' />
 						<div className='absolute right-0 top-0 z-10 h-full w-8 bg-gradient-to-l  from-gray-500 md:w-16' />
 						<div className='hide-scrollbar h-[100vw] w-[300px] origin-top-right translate-y-[300px] rotate-90 overflow-y-scroll scroll-smooth'>
-							{products.map(({ images, name, slug, price, _id }, index) => {
+							{products.map(({ images: img, name, price, _id }, index) => {
 								if (_id !== currentId) {
 									return (
 										<Link
 											key={index}
 											className='relative block h-[300px] w-[300px] -rotate-90'
-											to={`/store/${slug.current}`}
+											to={`/store/${_id}`}
 											onMouseEnter={() => seeOverlay(index)}
 											onMouseLeave={() => seeOverlay(undefined)}
 										>
@@ -54,7 +60,7 @@ function RalatedProducts({ currentId }) {
 											)}
 											<img
 												key={index}
-												src={urlFor(images[0])}
+												src={urlFor(img)}
 												className='h-full w-full'
 											/>
 											{visibleOverlay !== index && (

@@ -7,11 +7,17 @@ import Login from './pages/Login'
 import Footer from './components/Footer'
 import PageNotFound from './pages/PageNotFound'
 import ShoppingCart from './components/ShoppingCart'
-import { useStateContext } from './context/StateContext'
 import ProductDetails from './pages/ProductDetails'
+import { useEffect, useState } from 'react'
+import { client } from './lib/client'
 
 function App() {
-	const { products } = useStateContext()
+	const [products, setProducts] = useState()
+	useEffect(() => {
+		const productsQuery = `*[_type=="product"]{_id}`
+
+		client.fetch(productsQuery).then(data => setProducts(data))
+	}, [])
 	return (
 		<>
 			<Header />
@@ -22,11 +28,11 @@ function App() {
 					<Route path='/register' element={<Register />} />
 					<Route path='/login' element={<Login />} />
 					{products &&
-						products.map((product, index) => (
+						products.map(({ _id: id }, index) => (
 							<Route
 								key={index}
-								path={`/store/${product.slug.current}`}
-								element={<ProductDetails {...product} />}
+								path={`/store/${id}`}
+								element={<ProductDetails id={id} />}
 							/>
 						))}
 
