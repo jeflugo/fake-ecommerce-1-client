@@ -8,6 +8,7 @@ import Buttons from './Buttons'
 import Description from './Description'
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
+import ScrollToTop from '../../components/ScrollToTop'
 
 function ProductDetails({ name, price, tags, images, slug, sizes, _id }) {
 	const [currentImage, setCurrentImage] = useState(0)
@@ -15,6 +16,7 @@ function ProductDetails({ name, price, tags, images, slug, sizes, _id }) {
 
 	return (
 		<div>
+			<ScrollToTop />
 			<div className='mx-auto max-w-96 px-1 py-6 lg:max-w-[800px]'>
 				<div>
 					<button

@@ -9,12 +9,13 @@ import { useStateContext } from '../../context/StateContext'
 import { useState, useEffect } from 'react'
 import { client } from '../../lib/client'
 import { ORDER_BY_OPTIONS } from '../../constants'
+import ScrollToTop from '../../components/ScrollToTop'
 
 function Store() {
 	const { width, lg } = useStateContext()
 	const [shownProducts, setShownProducts] = useState()
-	const { category } = useStateContext()
 
+	const { category } = useStateContext()
 	const [orderByOption, setOrderByOption] = useState(ORDER_BY_OPTIONS[0])
 
 	useEffect(() => {
@@ -35,6 +36,7 @@ function Store() {
 
 	return (
 		<div>
+			<ScrollToTop />
 			<Helmet>
 				<title>glu - Store</title>
 			</Helmet>
