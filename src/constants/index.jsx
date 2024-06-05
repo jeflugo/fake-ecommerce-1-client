@@ -37,40 +37,42 @@ const CATEGORIES_PHOTOS = [
 		mainText: 'Live at max potential',
 		subText: 'All in men shoes',
 		img: MEN_CAT_IMG,
-		url: '/filter?cat=men',
 	},
 	{
 		mainText: 'Always have fun',
 		subText: 'Resistant to water and easy to wash',
 		img: KIDS_CAT_IMG,
-		url: '/filter?cat=kids',
 	},
 	{
 		mainText: 'A shoe you can trust',
 		subText: 'Maximum durability in the market',
 		img: WOMEN_CAT_IMG,
-		url: '/filter?cat=women',
 	},
 	{
 		mainText: 'Another level of competence',
 		subText: 'Take your game to the next level.',
 		img: POWER_CAT_IMG,
-		url: '/filter?cat=power',
 	},
 ]
 
 const SEASON_OFFERS = [
 	{
 		buttonText: "Men's summer offers",
-		url: '/filter?summer=men',
+		mainCatName: 'men',
+		subCatName: 'all',
+		catIndex: 1,
 	},
 	{
 		buttonText: "Kids's summer offers",
-		url: '/filter?summer=kids',
+		mainCatName: 'kids',
+		subCatName: 'all',
+		catIndex: 3,
 	},
 	{
 		buttonText: "Woman's summer offers",
-		url: '/filter?summer=women',
+		mainCatName: 'women',
+		subCatName: 'all',
+		catIndex: 2,
 	},
 ]
 
@@ -337,7 +339,7 @@ const SEARCH_CATEGORIES = [
 	},
 ]
 
-const ORDER_BY_OPTIONS = ['Default', 'Newest', 'Price up', 'Price down']
+const ORDER_BY_OPTIONS = ['Newest', 'Price up', 'Price down']
 
 export {
 	HERO_BANNERS,
