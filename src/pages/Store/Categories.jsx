@@ -39,18 +39,23 @@ function Categories() {
 						<h2>Categories</h2>
 					</AccordionHeader>
 					<AccordionBody className='py-3'>
-						{SEARCH_CATEGORIES.map(({ name, subs }, index) => (
-							<Accordion key={index} open={open === index}>
+						{SEARCH_CATEGORIES.map(({ name: mainCatName, subs }, catIndex) => (
+							<Accordion key={catIndex} open={open === catIndex}>
 								<AccordionHeader
-									onClick={() => handleOpen(index)}
+									onClick={() => handleOpen(catIndex)}
 									className='text-md p-0 py-1'
 								>
-									<h3 className='first-letter:uppercase'>{name}</h3>
+									<h3 className='first-letter:uppercase'>{mainCatName}</h3>
 								</AccordionHeader>
 								<AccordionBody className='ml-3'>
 									<ul>
-										{subs.map(({ name, value }, index) => (
-											<li key={index} onClick={() => setCategory(name)}>
+										{subs.map(({ name: subCatName, value }, index) => (
+											<li
+												key={index}
+												onClick={() =>
+													setCategory({ subCatName, mainCatName, catIndex })
+												}
+											>
 												{value}
 											</li>
 										))}
