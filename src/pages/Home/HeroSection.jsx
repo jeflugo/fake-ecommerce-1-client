@@ -10,7 +10,7 @@ function HeroSection() {
 	const { md, lg, width } = useStateContext()
 	const [newestProduct, setNewestProduct] = useState()
 	useEffect(() => {
-		const productsQuery = `*[_type=="product" && isNewest][0]{name, slug,price}`
+		const productsQuery = `*[_type=="product" && isNewest][0]{name, _id, price}`
 
 		client.fetch(productsQuery).then(data => setNewestProduct(data))
 	}, [])
@@ -28,7 +28,7 @@ function HeroSection() {
 								<span className='underline'>NEW</span> {newestProduct.name}
 							</h1>
 							<div className='flex justify-center gap-4 lg:justify-start'>
-								<Link to={`/store/${newestProduct.slug.current}`}>
+								<Link to={`/store/${newestProduct._id}`}>
 									<Button size='lg'>Buy now</Button>
 								</Link>
 								<div>
