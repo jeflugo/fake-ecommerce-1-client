@@ -13,7 +13,7 @@ function OrderBy({ orderByOption, setOrderByOption }) {
 			<Menu placement='bottom-end'>
 				<MenuHandler>
 					<Button variant='outlined' size='sm'>
-						{orderByOption === 'Default' ? 'Order By' : orderByOption}
+						{orderByOption}
 					</Button>
 				</MenuHandler>
 				<MenuList>
