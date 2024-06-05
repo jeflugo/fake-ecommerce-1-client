@@ -21,9 +21,6 @@ import SEASON_3 from '../assets/season-offers/season-offers-3.jpg'
 import SEASON_4 from '../assets/season-offers/season-offers-4.jpg'
 import SEASON_5 from '../assets/season-offers/season-offers-5.jpg'
 
-//* BEST SELLERS
-import BEST_SELLER_1 from '../assets/best-sellers/best-sellers-1.png'
-
 import {
 	FaTwitter,
 	FaYoutube,
@@ -59,32 +56,24 @@ const SEASON_OFFERS = [
 	{
 		buttonText: "Men's summer offers",
 		mainCatName: 'men',
-		subCatName: 'all',
+		subCatName: 'seasonal',
 		catIndex: 1,
 	},
 	{
 		buttonText: "Kids's summer offers",
 		mainCatName: 'kids',
-		subCatName: 'all',
+		subCatName: 'seasonal',
 		catIndex: 3,
 	},
 	{
 		buttonText: "Woman's summer offers",
 		mainCatName: 'women',
-		subCatName: 'all',
+		subCatName: 'seasonal',
 		catIndex: 2,
 	},
 ]
 
 const SEASON_OFFERS_IMGS = [SEASON_1, SEASON_2, SEASON_3, SEASON_4, SEASON_5]
-
-const BEST_SELLERS = [
-	{
-		name: "Air Max2 CB '94",
-		url: '/',
-		img: BEST_SELLER_1,
-	},
-]
 
 const FOOTER_LINKS = [
 	{
@@ -239,6 +228,14 @@ const SEARCH_CATEGORIES = [
 				name: 'all',
 				value: 'Show all',
 			},
+			{
+				name: 'offers',
+				value: 'Offers',
+			},
+			{
+				name: 'seasonal',
+				value: 'Seasonal',
+			},
 		],
 	},
 	{
@@ -267,6 +264,14 @@ const SEARCH_CATEGORIES = [
 			{
 				name: 'workout',
 				value: 'Workout',
+			},
+			{
+				name: 'offers',
+				value: 'Offers',
+			},
+			{
+				name: 'seasonal',
+				value: 'Seasonal',
 			},
 		],
 	},
@@ -297,6 +302,14 @@ const SEARCH_CATEGORIES = [
 				name: 'workout',
 				value: 'Workout',
 			},
+			{
+				name: 'offers',
+				value: 'Offers',
+			},
+			{
+				name: 'seasonal',
+				value: 'Seasonal',
+			},
 		],
 	},
 	{
@@ -313,6 +326,14 @@ const SEARCH_CATEGORIES = [
 			{
 				name: 'soccer',
 				value: 'Soccer',
+			},
+			{
+				name: 'offers',
+				value: 'Offers',
+			},
+			{
+				name: 'seasonal',
+				value: 'Seasonal',
 			},
 		],
 	},
@@ -335,6 +356,14 @@ const SEARCH_CATEGORIES = [
 				name: 'golf',
 				value: 'Golf',
 			},
+			{
+				name: 'offers',
+				value: 'Offers',
+			},
+			{
+				name: 'seasonal',
+				value: 'Seasonal',
+			},
 		],
 	},
 ]
@@ -346,7 +375,6 @@ export {
 	CATEGORIES_PHOTOS,
 	SEASON_OFFERS,
 	SEASON_OFFERS_IMGS,
-	BEST_SELLERS,
 	FOOTER_LINKS,
 	SOCIAL_LINKS,
 	FOOTER_INFO_LINKS,
