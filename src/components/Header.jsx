@@ -19,11 +19,16 @@ function Header() {
 						<Link to='/'>glu</Link>
 					</h2>
 					<div className='flex items-center gap-4'>
-						<Menu>
+						<Link to='/store'>
+							<Button size='sm'>
+								<span>Store</span>
+							</Button>
+						</Link>
+						<Menu placement='bottom-end'>
 							<MenuHandler>
-								<div>
+								<button className='rounded-full p-1 transition-all hover:text-gray-800 hover:shadow-lg'>
 									<AiOutlineUser size={25} />
-								</div>
+								</button>
 							</MenuHandler>
 							<MenuList>
 								<MenuItem>
@@ -34,11 +39,6 @@ function Header() {
 								</MenuItem>
 							</MenuList>
 						</Menu>
-						<Link to='/store'>
-							<Button size='sm'>
-								<span>Store</span>
-							</Button>
-						</Link>
 					</div>
 				</div>
 			</Container>
