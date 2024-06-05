@@ -44,7 +44,7 @@ function Store() {
 			orderByFilter += ` | order(_createdAt desc)`
 		}
 
-		const productsQuery = `*[_type=="product"${filtersQuery !== '' ? filtersQuery : ''}]${orderByFilter !== '' ? orderByFilter : ''} { name, price, images[0], slug, _createdAt }`
+		const productsQuery = `*[_type=="product"${filtersQuery !== '' ? filtersQuery : ''}]${orderByFilter !== '' ? orderByFilter : ''} { name, price, images[0], _id, _createdAt, discount, seasonDiscount }`
 
 		client.fetch(productsQuery).then(data => setShownProducts(data))
 	}, [category, orderByOption])
@@ -69,15 +69,20 @@ function Store() {
 				{width < lg && (
 					<>
 						{shownProducts && shownProducts.length !== 0 ? (
-							<Products
-								products={shownProducts}
-								orderByOption={orderByOption}
-							/>
+							<Products products={shownProducts} />
 						) : (
-							<h2 className='mx-auto text-center text-2xl font-medium'>
-								No products were found for the &quot;{category.mainCatName}{' '}
-								{category.subCatName}&quot; category
-							</h2>
+							<>
+								{category ? (
+									<h2 className='mx-auto text-center text-2xl font-medium'>
+										No products were found for the &quot;{category.mainCatName}{' '}
+										{category.subCatName}&quot; category
+									</h2>
+								) : (
+									<h2 className='mx-auto text-center text-2xl font-medium'>
+										Nothing to show yet
+									</h2>
+								)}
+							</>
 						)}
 					</>
 				)}
@@ -87,15 +92,21 @@ function Store() {
 						<div className='mt-6 flex gap-14'>
 							{width > lg && <Categories />}
 							{shownProducts && shownProducts.length !== 0 ? (
-								<Products
-									products={shownProducts}
-									orderByOption={orderByOption}
-								/>
+								<Products products={shownProducts} />
 							) : (
-								<h2 className='mx-auto text-center text-2xl font-medium'>
-									No products were found for the &quot;{category.mainCatName}{' '}
-									{category.subCatName}&quot; category
-								</h2>
+								<>
+									{category ? (
+										<h2 className='mx-auto text-center text-2xl font-medium'>
+											No products were found for the &quot;
+											{category.mainCatName} {category.subCatName}&quot;
+											category
+										</h2>
+									) : (
+										<h2 className='mx-auto text-center text-2xl font-medium'>
+											Nothing to show yet
+										</h2>
+									)}
+								</>
 							)}
 						</div>
 					</Container>
