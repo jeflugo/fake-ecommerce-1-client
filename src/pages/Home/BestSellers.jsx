@@ -3,7 +3,7 @@ import Container from '../../components/Container'
 import { BiChevronLeft, BiChevronRight, BiHeart, BiPlus } from 'react-icons/bi'
 import { useStateContext } from '../../context/StateContext'
 import { useState, useEffect } from 'react'
-import { urlFor } from '../../lib/client'
+import { client, urlFor } from '../../lib/client'
 import { Carousel } from '@material-tailwind/react'
 
 import { motion } from 'framer-motion'
@@ -11,11 +11,13 @@ import { motion } from 'framer-motion'
 function BestSellers() {
 	const [bestSellers, setBestSellers] = useState()
 	const [visibleOverlay, setVisibleOverlay] = useState()
-	const { md, width, products } = useStateContext()
+	const { md, width } = useStateContext()
 
 	useEffect(() => {
-		if (products) setBestSellers(products)
-	}, [products])
+		const productsQuery = `*[_type=="product"] | order(totalSales desc)[0...10] {images[0], name, slug, price}`
+
+		client.fetch(productsQuery).then(data => setBestSellers(data))
+	}, [])
 
 	const seeOverlay = index => setVisibleOverlay(index)
 
@@ -53,10 +55,10 @@ function BestSellers() {
 						</button>
 					)}
 				>
-					{bestSellers.map(({ images, name, slug }, index) => (
+					{bestSellers.map(({ images: img, name, slug }, index) => (
 						<div key={index} className='relative'>
 							<Link to={`/store/${slug.current}`}>
-								<img src={urlFor(images[0])} className='w-full' />
+								<img src={urlFor(img)} className='w-full' />
 							</Link>
 							<h3 className='absolute bottom-9 w-full text-center text-2xl font-medium'>
 								{name}
@@ -70,7 +72,7 @@ function BestSellers() {
 					<div className='absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-gray-500' />
 					<div className='absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-gray-500' />
 					<div className='hide-scrollbar h-[100vw] w-[400px] origin-top-right translate-y-[400px] rotate-90 overflow-y-scroll scroll-smooth'>
-						{bestSellers.map(({ images, name, slug, price }, index) => (
+						{bestSellers.map(({ images: img, name, slug, price }, index) => (
 							<Link
 								key={index}
 								className='relative block h-[400px] w-[400px] -rotate-90'
@@ -101,11 +103,7 @@ function BestSellers() {
 										</div>
 									</motion.div>
 								)}
-								<img
-									key={index}
-									src={urlFor(images[0])}
-									className='h-full w-full'
-								/>
+								<img key={index} src={urlFor(img)} className='h-full w-full' />
 								{visibleOverlay !== index && (
 									<h3 className='absolute bottom-6 z-10 w-full text-center text-xl font-medium'>
 										{name}
