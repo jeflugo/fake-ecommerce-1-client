@@ -1,10 +1,17 @@
 import { Button } from '@material-tailwind/react'
 import { BiPlus } from 'react-icons/bi'
+import { useStateContext } from '../../context/StateContext'
 
-export default function Buttons({ price, discount, seasonDiscount }) {
+export default function AddToCart({ price, discount, seasonDiscount }) {
+	const { addToCart } = useStateContext()
 	return (
 		<div className='flex items-center gap-2'>
-			<Button className='flex gap-2'>
+			<Button
+				className='flex gap-2'
+				onClick={() => {
+					addToCart()
+				}}
+			>
 				<span>Add to cart</span>
 				<span>
 					<BiPlus />
