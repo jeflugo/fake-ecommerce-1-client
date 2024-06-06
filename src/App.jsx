@@ -6,10 +6,11 @@ import Register from './pages/Register'
 import Login from './pages/Login'
 import Footer from './components/Footer'
 import PageNotFound from './pages/PageNotFound'
-import ShoppingCart from './components/ShoppingCart'
+import Cart from './components/Cart'
 import ProductDetails from './pages/ProductDetails'
 import { useEffect, useState } from 'react'
 import { client } from './lib/client'
+import CartButton from './components/CartButton'
 
 function App() {
 	const [products, setProducts] = useState()
@@ -21,7 +22,7 @@ function App() {
 	return (
 		<>
 			<Header />
-			<main>
+			<main className='relative'>
 				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='/store' element={<Store />} />
@@ -39,9 +40,11 @@ function App() {
 					{/* 404 */}
 					<Route path='*' element={<PageNotFound />} />
 				</Routes>
+
+				<CartButton />
+				<Cart />
 			</main>
 			<Footer />
-			<ShoppingCart />
 		</>
 	)
 }
