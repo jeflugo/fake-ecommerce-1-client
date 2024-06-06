@@ -12,6 +12,7 @@ export default function StateContext({ children }) {
 	const [cartProducts, setCartProducts] = useState([])
 	const [favProducts, setFavsProducts] = useState([])
 	const [category, setCategory] = useState()
+	const [selectedSize, setSelectedSize] = useState()
 
 	useEffect(() => {
 		const handleResize = () => setWidth(window.innerWidth)
@@ -20,6 +21,13 @@ export default function StateContext({ children }) {
 
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
+
+	const selectSize = index => {
+		setSelectedSize(prev => {
+			if (index === prev) return
+			return index
+		})
+	}
 
 	const addToCart = () => {
 		console.log('Added to cart successfully')
@@ -30,7 +38,18 @@ export default function StateContext({ children }) {
 
 	return (
 		<Context.Provider
-			value={{ sm, md, lg, width, category, setCategory, addToCart, addToFavs }}
+			value={{
+				sm,
+				md,
+				lg,
+				width,
+				category,
+				setCategory,
+				addToCart,
+				addToFavs,
+				selectedSize,
+				selectSize,
+			}}
 		>
 			{children}
 		</Context.Provider>

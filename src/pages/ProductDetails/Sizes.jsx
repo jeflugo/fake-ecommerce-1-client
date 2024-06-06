@@ -1,14 +1,9 @@
 import { Button } from '@material-tailwind/react'
-import { useState } from 'react'
+import { useStateContext } from '../../context/StateContext'
 
 export default function Sizes({ sizes }) {
-	const [selectedSize, setSelectedSize] = useState()
-	const selectSize = index => {
-		setSelectedSize(prev => {
-			if (index === prev) return
-			return index
-		})
-	}
+	const { selectedSize, selectSize } = useStateContext()
+
 	return (
 		<div className='mb-2 lg:mb-8'>
 			<h3 className='mb-1 text-xl font-medium'>Available sizes</h3>
