@@ -17,7 +17,7 @@ function ProductDetails({ id }) {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		const productsQuery = `*[_type=="product" && _id match '${id}'][0]{name, slug, images, tags, sizes, price}`
+		const productsQuery = `*[_type=="product" && _id match '${id}'][0]{name, slug, images, tags, sizes, price, discount, seasonDiscount}`
 
 		client.fetch(productsQuery).then(data => {
 			setProduct(data)
@@ -25,10 +25,10 @@ function ProductDetails({ id }) {
 	}, [id])
 
 	return (
-		<div>
+		<>
+			<ScrollToTop />
 			{product && (
-				<>
-					<ScrollToTop />
+				<div>
 					<div className='mx-auto max-w-96 px-1 py-6 lg:max-w-[800px]'>
 						<div>
 							<button
@@ -59,14 +59,18 @@ function ProductDetails({ id }) {
 							<div className='lg:w-[300px]'>
 								<Description />
 								<Sizes sizes={product.sizes} />
-								<Buttons price={product.price} />
+								<Buttons
+									price={product.price}
+									discount={product.discount}
+									seasonDiscount={product.seasonDiscount}
+								/>
 							</div>
 						</div>
 					</div>
 					<RalatedProducts currentId={id} />
-				</>
+				</div>
 			)}
-		</div>
+		</>
 	)
 }
 
