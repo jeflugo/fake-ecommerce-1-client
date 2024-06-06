@@ -1,4 +1,5 @@
-import { BiHeart, BiPlus } from 'react-icons/bi'
+import AddToFavs from '../../components/AddToFavs'
+import AddToCart from '../../components/AddToCart'
 import { urlFor } from '../../lib/client'
 import { Link } from 'react-router-dom'
 
@@ -7,14 +8,8 @@ function Product({ name, price, images: img, _id, discount, seasonDiscount }) {
 		<div className='relative max-w-[360px] lg:max-w-sm'>
 			<div className='absolute right-0 top-0 flex justify-end px-6 pt-6'>
 				<div className='flex gap-2'>
-					<BiHeart
-						size={23}
-						className='transition-all hover:scale-125 hover:fill-red-600 active:scale-100'
-					/>
-					<BiPlus
-						size={23}
-						className='transition-all hover:scale-125 active:scale-100'
-					/>
+					<AddToFavs />
+					<AddToCart />
 				</div>
 			</div>
 			<Link to={`/store/${_id}`}>
