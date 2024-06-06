@@ -4,12 +4,12 @@ import Tags from './Tags'
 import Thumbnails from './Thumbnails'
 import Sizes from './Sizes'
 import MainImage from './MainImage'
-import Buttons from './Buttons'
 import Description from './Description'
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
 import ScrollToTop from '../../components/ScrollToTop'
 import { client } from '../../lib/client'
+import AddToCart from './AddToCart'
 
 function ProductDetails({ id }) {
 	const [product, setProduct] = useState()
@@ -59,7 +59,7 @@ function ProductDetails({ id }) {
 							<div className='lg:w-[300px]'>
 								<Description />
 								<Sizes sizes={product.sizes} />
-								<Buttons
+								<AddToCart
 									price={product.price}
 									discount={product.discount}
 									seasonDiscount={product.seasonDiscount}
