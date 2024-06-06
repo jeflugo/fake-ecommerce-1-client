@@ -21,14 +21,14 @@ function Product({ name, price, images: img, _id, discount, seasonDiscount }) {
 				<img src={urlFor(img)} className='w-full' />
 			</Link>
 			<h3 className='absolute bottom-0 flex w-full items-center justify-between px-6 pb-6 text-lg font-medium'>
-				<span>{name}</span>
+				<span className='w-[60%]'>{name}</span>
 				<div className='flex flex-col'>
 					{!discount && !seasonDiscount && <span>${price}</span>}
 					{discount && (
 						<>
 							<span className='text-red-500 line-through'>${price}</span>
 							<span className='text-green-500'>
-								${price - price * (discount / 100)}(%{discount})
+								${price - price * (discount / 100)} ({discount}%)
 							</span>
 						</>
 					)}
@@ -36,7 +36,7 @@ function Product({ name, price, images: img, _id, discount, seasonDiscount }) {
 						<>
 							<span className='text-red-500 line-through'>${price}</span>
 							<span className='text-green-500'>
-								${price - price * (seasonDiscount / 100)}(%{seasonDiscount})
+								${price - price * (seasonDiscount / 100)} ({seasonDiscount}%)
 							</span>
 						</>
 					)}

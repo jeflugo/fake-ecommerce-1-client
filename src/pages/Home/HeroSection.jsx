@@ -36,7 +36,7 @@ function HeroSection() {
 										${newestProduct.price}
 									</p>
 									<p className='text-green-600'>
-										${newestProduct.price / 2} (50 %off)
+										${newestProduct.price / 2} (50% Off)
 									</p>
 								</div>
 							</div>

@@ -26,13 +26,13 @@ export default function ProductOverlay({
 					{!discount && !seasonDiscount && <span>${price}</span>}
 					{discount && (
 						<span>
-							${price - price * (discount / 100)}(-%{discount})
+							${price - price * (discount / 100)}(-{discount}%)
 						</span>
 					)}
 					{seasonDiscount && (
 						<span>
-							${price - price * (seasonDiscount / 100)}(-%
-							{seasonDiscount})
+							${price - price * (seasonDiscount / 100)}(-
+							{seasonDiscount}%)
 						</span>
 					)}
 				</div>

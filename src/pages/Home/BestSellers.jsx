@@ -5,16 +5,13 @@ import { useStateContext } from '../../context/StateContext'
 import { useState, useEffect } from 'react'
 import { client, urlFor } from '../../lib/client'
 import { Carousel } from '@material-tailwind/react'
-import ProductItemSlider from '../../components/ProductItemSlider'
 import ProductOverlay from '../../components/ProductOverlay'
-
-const SLIDER_SIZE = 400
 
 function BestSellers() {
 	const [bestSellers, setBestSellers] = useState()
 	const { md, width } = useStateContext()
 	const [visibleOverlay, setVisibleOverlay] = useState()
-	const seeOverlay = i => setVisibleOverlay(i)
+	const seeOverlay = index => setVisibleOverlay(index)
 
 	useEffect(() => {
 		const productsQuery = `*[_type=="product"] | order(totalSales desc)[0...10] {images[0], name, _id, price, discount, seasonDiscount}`
@@ -76,11 +73,11 @@ function BestSellers() {
 				</Carousel>
 			)}
 			{bestSellers && width > md && (
-				<div className={`relative flex h-[${SLIDER_SIZE}px] justify-end`}>
+				<div className={`relative flex h-[400px] justify-end`}>
 					<div className='absolute left-0 top-0 z-10 h-full w-16 bg-gradient-to-r from-gray-500' />
 					<div className='absolute right-0 top-0 z-10 h-full w-16 bg-gradient-to-l from-gray-500' />
 					<div
-						className={`horizontal-slider hide-scrollbar h-[100vw] w-[${SLIDER_SIZE}px] origin-top-right translate-y-[${SLIDER_SIZE}px] rotate-90 overflow-y-scroll scroll-smooth`}
+						className={`horizontal-slider hide-scrollbar h-[100vw] w-[400px] origin-top-right translate-y-[400px] rotate-90 overflow-y-scroll scroll-smooth`}
 					>
 						{bestSellers.map(
 							(
@@ -89,7 +86,7 @@ function BestSellers() {
 							) => (
 								<Link
 									key={index}
-									className={`relative block h-[${SLIDER_SIZE}px] w-[${SLIDER_SIZE}px] -rotate-90`}
+									className={`relative block h-[400px] w-[400px] -rotate-90`}
 									to={`/store/${_id}`}
 									onMouseOver={() => seeOverlay(index)}
 								>
