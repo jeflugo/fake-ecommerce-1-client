@@ -11,6 +11,7 @@ import ProductDetails from './pages/ProductDetails'
 import { useEffect, useState } from 'react'
 import { client } from './lib/client'
 import CartButton from './components/CartButton'
+import { Toaster } from 'react-hot-toast'
 
 function App() {
 	const [products, setProducts] = useState()
@@ -21,8 +22,9 @@ function App() {
 	}, [])
 	return (
 		<>
+			<Toaster position='top-center' />
 			<Header />
-			<main className='relative'>
+			<main>
 				<Routes>
 					<Route path='/' element={<Home />} />
 					<Route path='/store' element={<Store />} />
@@ -40,11 +42,11 @@ function App() {
 					{/* 404 */}
 					<Route path='*' element={<PageNotFound />} />
 				</Routes>
-
-				<CartButton />
-				<Cart />
 			</main>
 			<Footer />
+
+			<CartButton />
+			<Cart />
 		</>
 	)
 }
