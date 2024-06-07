@@ -17,7 +17,7 @@ function ProductDetails({ id }) {
 	const navigate = useNavigate()
 
 	useEffect(() => {
-		const productsQuery = `*[_type=="product" && _id match '${id}'][0]{name, slug, images, tags, sizes, price, discount, seasonDiscount}`
+		const productsQuery = `*[_type=="product" && _id match '${id}'][0]{_id, name, slug, images, tags, sizes, price, discount, seasonDiscount}`
 
 		client.fetch(productsQuery).then(data => {
 			setProduct(data)
@@ -60,6 +60,9 @@ function ProductDetails({ id }) {
 								<Description />
 								<Sizes sizes={product.sizes} />
 								<AddToCart
+									name={product.name}
+									_id={product._id}
+									img={product.images[0]}
 									price={product.price}
 									discount={product.discount}
 									seasonDiscount={product.seasonDiscount}
