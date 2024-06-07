@@ -22,10 +22,10 @@ export default function StateContext({ children }) {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
-	const selectSize = index => {
+	const selectSize = size => {
 		setSelectedSize(prev => {
-			if (index === prev) return
-			return index
+			if (size === prev) return
+			return size
 		})
 	}
 
