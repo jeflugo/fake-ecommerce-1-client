@@ -2,14 +2,22 @@ import { Button } from '@material-tailwind/react'
 import { BiPlus } from 'react-icons/bi'
 import { useStateContext } from '../../context/StateContext'
 
-export default function AddToCart({ price, discount, seasonDiscount }) {
+export default function AddToCart({
+	_id,
+	name,
+	img,
+	price,
+	discount,
+	seasonDiscount,
+}) {
 	const { addToCart } = useStateContext()
+
 	return (
 		<div className='flex items-center gap-2'>
 			<Button
 				className='flex gap-2'
 				onClick={() => {
-					addToCart()
+					addToCart(_id, name, img, price, discount, seasonDiscount)
 				}}
 			>
 				<span>Add to cart</span>
@@ -17,6 +25,18 @@ export default function AddToCart({ price, discount, seasonDiscount }) {
 					<BiPlus />
 				</span>
 			</Button>
+			<PriceInfo
+				price={price}
+				discount={discount}
+				seasonDiscount={seasonDiscount}
+			/>
+		</div>
+	)
+}
+
+const PriceInfo = ({ price, discount, seasonDiscount }) => {
+	return (
+		<>
 			{!discount && !seasonDiscount && (
 				<h4 className='text-lg text-green-600'>${price}</h4>
 			)}
@@ -36,6 +56,6 @@ export default function AddToCart({ price, discount, seasonDiscount }) {
 					</span>
 				</h4>
 			)}
-		</div>
+		</>
 	)
 }
