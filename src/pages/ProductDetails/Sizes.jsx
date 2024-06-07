@@ -12,12 +12,12 @@ export default function Sizes({ sizes }) {
 					.sort((a, b) => a.size - b.size)
 					.map(({ size, stock }, index) => (
 						<Button
-							className={`${index === selectedSize && 'scale-110'}`}
+							className={`${size === selectedSize && 'scale-110'}`}
 							variant='outlined'
 							size='sm'
 							key={index}
 							onClick={() => {
-								selectSize(index)
+								selectSize(size)
 							}}
 						>
 							{size}
