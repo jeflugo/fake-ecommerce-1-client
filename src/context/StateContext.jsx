@@ -1,4 +1,5 @@
 import { useState, useEffect, createContext, useContext } from 'react'
+import { toast } from 'react-hot-toast'
 
 const Context = createContext()
 
@@ -8,9 +9,10 @@ const lg = 1000
 
 export default function StateContext({ children }) {
 	const [width, setWidth] = useState(window.innerWidth)
-	const [user, setUser] = useState()
+	// const [user, setUser] = useState()
+	const [showCart, setShowCart] = useState(false)
 	const [cartProducts, setCartProducts] = useState([])
-	const [favProducts, setFavsProducts] = useState([])
+	// const [favProducts, setFavsProducts] = useState([])
 	const [category, setCategory] = useState()
 	const [selectedSize, setSelectedSize] = useState()
 
@@ -29,11 +31,28 @@ export default function StateContext({ children }) {
 		})
 	}
 
-	const addToCart = () => {
-		console.log('Added to cart successfully')
+	const toggleCart = () => setShowCart(!showCart)
+
+	const addToCart = (_id, name, img, price, discount, seasonDiscount) => {
+		let finalPrice = price
+		if (!selectedSize) return toast.error('No size')
+		if (discount) finalPrice = price - price * (discount / 100)
+		if (seasonDiscount) finalPrice = price - price * (seasonDiscount / 100)
+		const newProduct = {
+			_id,
+			name,
+			img,
+			qty: 1,
+			totalPrice: finalPrice,
+			size: selectedSize,
+		}
+		setSelectedSize(null)
+		setCartProducts(prev => [...prev, newProduct])
+		toast.success(`${name}, size: ${selectedSize} added to cart.`)
 	}
+
 	const addToFavs = () => {
-		console.log('Added to favs successfully')
+		toast.success('Added to favs successfully')
 	}
 
 	return (
@@ -49,6 +68,9 @@ export default function StateContext({ children }) {
 				addToFavs,
 				selectedSize,
 				selectSize,
+				cartProducts,
+				toggleCart,
+				showCart,
 			}}
 		>
 			{children}
