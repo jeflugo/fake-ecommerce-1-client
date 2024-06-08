@@ -38,7 +38,8 @@ export default function StateContext({ children }) {
 		if (!selectedSize) return toast.error('No size')
 		if (discount) finalPrice = price - price * (discount / 100)
 		if (seasonDiscount) finalPrice = price - price * (seasonDiscount / 100)
-		const newProduct = {
+
+		let newProduct = {
 			_id,
 			name,
 			img,
@@ -46,9 +47,35 @@ export default function StateContext({ children }) {
 			totalPrice: finalPrice,
 			size: selectedSize,
 		}
+
+		if (productExist(_id)) {
+			const newProductIndex = cartProducts.findIndex(
+				product => product._id === _id && product.size === selectedSize,
+			)
+			newProduct = cartProducts[newProductIndex]
+			newProduct.qty = newProduct.qty + 1
+
+			setCartProducts(prev => [
+				...prev.slice(0, newProductIndex),
+				newProduct,
+				...prev.slice(newProductIndex + 1),
+			])
+			toast.success(`${name}, size: ${selectedSize} added to cart.`)
+			setSelectedSize(null)
+			return
+		}
+
 		setSelectedSize(null)
 		setCartProducts(prev => [...prev, newProduct])
 		toast.success(`${name}, size: ${selectedSize} added to cart.`)
+	}
+
+	function productExist(id) {
+		const existence =
+			cartProducts.findIndex(
+				product => id === product._id && product.size === selectedSize,
+			) !== -1
+		return existence
 	}
 
 	const addToFavs = () => {
