@@ -7,7 +7,6 @@ import MainImage from './MainImage'
 import Description from './Description'
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
-import ScrollToTop from '../../components/ScrollToTop'
 import { client } from '../../lib/client'
 import AddToCart from './AddToCart'
 
@@ -24,9 +23,12 @@ function ProductDetails({ id }) {
 		})
 	}, [id])
 
+	useEffect(() => {
+		window.scrollTo(0, 0)
+	}, [product])
+
 	return (
 		<>
-			<ScrollToTop />
 			{product && (
 				<div>
 					<div className='mx-auto max-w-96 px-1 py-6 lg:max-w-[800px]'>
