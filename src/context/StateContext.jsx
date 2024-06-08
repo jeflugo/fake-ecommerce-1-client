@@ -124,6 +124,10 @@ export default function StateContext({ children }) {
 		toast.success('Added to favs successfully')
 	}
 
+	const handleCheckout = () => {
+		console.log('checkout')
+	}
+
 	return (
 		<Context.Provider
 			value={{
@@ -143,6 +147,7 @@ export default function StateContext({ children }) {
 				addOne,
 				removeOne,
 				removeFromCart,
+				handleCheckout,
 			}}
 		>
 			{children}
