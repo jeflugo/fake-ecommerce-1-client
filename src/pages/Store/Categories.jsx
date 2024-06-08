@@ -56,7 +56,11 @@ function Categories() {
 													setCategory({ subCatName, mainCatName, catIndex })
 												}
 											>
-												{value}
+												<button
+													className={`${category?.subCatName === subCatName && category?.catIndex === catIndex && 'font-bold'} active:underline`}
+												>
+													{value}
+												</button>
 											</li>
 										))}
 									</ul>
