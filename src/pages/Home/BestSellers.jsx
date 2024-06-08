@@ -14,7 +14,7 @@ function BestSellers() {
 	const seeOverlay = index => setVisibleOverlay(index)
 
 	useEffect(() => {
-		const productsQuery = `*[_type=="product"] | order(totalSales desc)[0...10] {images[0], name, _id, price, discount, seasonDiscount}`
+		const productsQuery = `*[_type=="product"] | order(totalSales desc)[0...10] {images[0], name, _id, price, discount, seasonDiscount, sizes}`
 
 		client.fetch(productsQuery).then(data => setBestSellers(data))
 	}, [])
@@ -81,13 +81,20 @@ function BestSellers() {
 					>
 						{bestSellers.map(
 							(
-								{ images: img, name, _id, price, discount, seasonDiscount },
+								{
+									images: img,
+									name,
+									_id,
+									price,
+									discount,
+									seasonDiscount,
+									sizes,
+								},
 								index,
 							) => (
-								<Link
+								<div
 									key={index}
 									className={`relative block h-[400px] w-[400px] -rotate-90`}
-									to={`/store/${_id}`}
 									onMouseOver={() => seeOverlay(index)}
 								>
 									{visibleOverlay === index ? (
@@ -96,6 +103,9 @@ function BestSellers() {
 											seasonDiscount={seasonDiscount}
 											price={price}
 											name={name}
+											_id={_id}
+											img={img}
+											sizes={sizes}
 										/>
 									) : (
 										<h3 className='absolute bottom-6 z-10 w-full text-center text-xl font-medium'>
@@ -103,7 +113,7 @@ function BestSellers() {
 										</h3>
 									)}
 									<img src={urlFor(img)} className='h-full w-full' />
-								</Link>
+								</div>
 							),
 						)}
 					</div>

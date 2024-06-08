@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
 import { client, urlFor } from '../../lib/client'
 import ProductOverlay from '../../components/ProductOverlay'
 
@@ -9,7 +8,7 @@ function RalatedProducts({ currentId }) {
 	const [products, setProducts] = useState()
 
 	useEffect(() => {
-		const productsQuery = `*[_type=="product"][0...7]{ images[0], name, price, _id, discount, seasonDiscount }`
+		const productsQuery = `*[_type=="product"][0...7]{ images[0], name, price, _id, discount, seasonDiscount, sizes }`
 
 		client.fetch(productsQuery).then(data => setProducts(data))
 	}, [])
@@ -34,15 +33,22 @@ function RalatedProducts({ currentId }) {
 						>
 							{products.map(
 								(
-									{ images: img, name, price, _id, discount, seasonDiscount },
+									{
+										images: img,
+										name,
+										price,
+										_id,
+										discount,
+										seasonDiscount,
+										sizes,
+									},
 									index,
 								) => {
 									if (_id !== currentId) {
 										return (
-											<Link
+											<div
 												key={index}
 												className={`relative block h-[300px] w-[300px] -rotate-90`}
-												to={`/store/${_id}`}
 												onMouseOver={() => seeOverlay(index)}
 											>
 												{visibleOverlay === index ? (
@@ -51,6 +57,9 @@ function RalatedProducts({ currentId }) {
 														seasonDiscount={seasonDiscount}
 														price={price}
 														name={name}
+														_id={_id}
+														img={img}
+														sizes={sizes}
 													/>
 												) : (
 													<h3 className='absolute bottom-6 z-10 w-full text-center text-xl font-medium'>
@@ -58,7 +67,7 @@ function RalatedProducts({ currentId }) {
 													</h3>
 												)}
 												<img src={urlFor(img)} className='h-full w-full' />
-											</Link>
+											</div>
 										)
 									}
 								},
