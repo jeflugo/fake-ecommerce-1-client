@@ -3,13 +3,29 @@ import AddToCart from '../../components/AddToCart'
 import { urlFor } from '../../lib/client'
 import { Link } from 'react-router-dom'
 
-function Product({ name, price, images: img, _id, discount, seasonDiscount }) {
+function Product({
+	name,
+	price,
+	images: img,
+	_id,
+	discount,
+	seasonDiscount,
+	sizes,
+}) {
 	return (
 		<div className='relative max-w-[360px] lg:max-w-sm'>
 			<div className='absolute right-0 top-0 flex justify-end px-6 pt-6'>
 				<div className='flex gap-2'>
 					<AddToFavs />
-					<AddToCart />
+					<AddToCart
+						discount={discount}
+						seasonDiscount={seasonDiscount}
+						price={price}
+						name={name}
+						_id={_id}
+						img={img}
+						sizes={sizes}
+					/>
 				</div>
 			</div>
 			<Link to={`/store/${_id}`}>
