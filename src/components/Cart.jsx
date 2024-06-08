@@ -38,7 +38,7 @@ function Cart() {
 									{cartProducts.map(
 										({ name, img, size, qty, totalPrice, _id }) => (
 											<div
-												key={_id}
+												key={`${_id}:${size}`}
 												className='mb-4 flex h-[90px] overflow-hidden rounded-md shadow-md'
 											>
 												<img
