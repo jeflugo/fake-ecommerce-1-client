@@ -10,9 +10,9 @@ const lg = 1000
 export default function StateContext({ children }) {
 	const [width, setWidth] = useState(window.innerWidth)
 	// const [user, setUser] = useState()
+	// const [favProducts, setFavsProducts] = useState([])
 	const [showCart, setShowCart] = useState(false)
 	const [cartProducts, setCartProducts] = useState([])
-	// const [favProducts, setFavsProducts] = useState([])
 	const [category, setCategory] = useState()
 	const [selectedSize, setSelectedSize] = useState()
 
@@ -24,14 +24,14 @@ export default function StateContext({ children }) {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
+	const toggleCart = () => setShowCart(!showCart)
+
 	const selectSize = ({ size, stock }) => {
 		setSelectedSize(prev => {
 			if (size === prev?.size) return
 			return { size, stock }
 		})
 	}
-
-	const toggleCart = () => setShowCart(!showCart)
 
 	const addToCart = (_id, name, img, price, discount, seasonDiscount) => {
 		let finalPrice = price
@@ -73,6 +73,17 @@ export default function StateContext({ children }) {
 		toast.success(`${newProduct.name}, size: ${newProduct.size} added to cart.`)
 	}
 
+	const removeFromCart = (_id, size) => {
+		const newCartProducts = cartProducts.filter(product => {
+			// console.log('_id !== product._id: ', _id !== product._id)
+			// console.log('size !== product.size: ', size !== product.size)
+			if (_id !== product._id) return true
+			if (_id === product._id && size !== product.size) return true
+			return false
+		})
+		setCartProducts(newCartProducts)
+	}
+
 	const addOne = (_id, size) => {
 		const productIndex = cartProducts.findIndex(
 			product => product._id === _id && product.size === size,
@@ -86,6 +97,7 @@ export default function StateContext({ children }) {
 			...prev.slice(productIndex + 1),
 		])
 	}
+
 	const removeOne = (_id, size) => {
 		const productIndex = cartProducts.findIndex(
 			product => product._id === _id && product.size === size,
@@ -130,6 +142,7 @@ export default function StateContext({ children }) {
 				showCart,
 				addOne,
 				removeOne,
+				removeFromCart,
 			}}
 		>
 			{children}

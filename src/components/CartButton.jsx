@@ -18,7 +18,7 @@ export default function CartButton() {
 				<Tooltip
 					content='CheckCart'
 					placement='top-start'
-					className={showCart && 'hidden'}
+					className={showCart ? 'hidden' : 'asd'}
 				>
 					<div className='rounded-bl-full rounded-tl-full bg-black px-2 py-1 text-3xl text-white shadow-xl'>
 						<BiCart />

@@ -2,12 +2,18 @@ import { AiOutlineClose } from 'react-icons/ai'
 import Container from './Container'
 import { useStateContext } from '../context/StateContext'
 import { urlFor } from '../lib/client'
-import { BiChevronDown, BiChevronUp } from 'react-icons/bi'
+import { BiChevronDown, BiChevronUp, BiTrash } from 'react-icons/bi'
 import { Tooltip } from '@material-tailwind/react'
 
 function Cart() {
-	const { cartProducts, toggleCart, showCart, addOne, removeOne } =
-		useStateContext()
+	const {
+		cartProducts,
+		toggleCart,
+		showCart,
+		addOne,
+		removeOne,
+		removeFromCart,
+	} = useStateContext()
 
 	return (
 		<>
@@ -38,8 +44,18 @@ function Cart() {
 												/>
 												<div className='flex w-[75%] items-center justify-between py-4 pl-4 pr-6'>
 													<div>
-														<h2 className='font-bold'>
-															{name} (#{size})
+														<h2 className='flex flex-wrap items-center gap-1 text-lg font-medium'>
+															<span>
+																{name} (#{size}){' '}
+															</span>
+															<button
+																className='hover:text-red-500'
+																onClick={() => {
+																	removeFromCart(_id, size)
+																}}
+															>
+																<BiTrash />
+															</button>
 														</h2>
 														<p>
 															Total:{' '}
