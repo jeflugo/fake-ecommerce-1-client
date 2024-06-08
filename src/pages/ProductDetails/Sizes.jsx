@@ -7,7 +7,7 @@ export default function Sizes({ sizes }) {
 	return (
 		<div className='mb-2 lg:mb-8'>
 			<h3 className='mb-1 text-xl font-medium'>Available sizes</h3>
-			<div className='flex gap-2'>
+			<div className='flex flex-wrap gap-2'>
 				{sizes
 					.sort((a, b) => a.size - b.size)
 					.map(({ size, stock }, index) => (

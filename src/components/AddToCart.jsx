@@ -46,7 +46,7 @@ function Sizes({ sizes }) {
 	return (
 		<div className='mb-2'>
 			<h3 className='mb-1 text-xl font-medium'>Available sizes</h3>
-			<div className='flex gap-2'>
+			<div className='flex max-w-52 flex-wrap gap-1'>
 				{sizes
 					.sort((a, b) => a.size - b.size)
 					.map(({ size, stock }, index) => (
