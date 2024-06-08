@@ -7,5 +7,3 @@ export default function ScrollToTop() {
 
 	return null
 }
-
-ScrollToTop
