@@ -1,4 +1,4 @@
-import { Button } from '@material-tailwind/react'
+import { Button, Tooltip } from '@material-tailwind/react'
 import { useStateContext } from '../../context/StateContext'
 
 export default function Sizes({ sizes }) {
@@ -11,17 +11,18 @@ export default function Sizes({ sizes }) {
 				{sizes
 					.sort((a, b) => a.size - b.size)
 					.map(({ size, stock }, index) => (
-						<Button
-							className={`${size === selectedSize && 'scale-110'}`}
-							variant='outlined'
-							size='sm'
-							key={index}
-							onClick={() => {
-								selectSize(size)
-							}}
-						>
-							{size}
-						</Button>
+						<Tooltip key={index} content={`Stock: ${stock}`}>
+							<Button
+								className={`${size === selectedSize?.size && 'scale-110'}`}
+								variant='outlined'
+								size='sm'
+								onClick={() => {
+									selectSize({ size, stock })
+								}}
+							>
+								{size}
+							</Button>
+						</Tooltip>
 					))}
 			</div>
 		</div>
