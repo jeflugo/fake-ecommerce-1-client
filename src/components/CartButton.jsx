@@ -6,7 +6,7 @@ export default function CartButton() {
 	const { showCart, toggleCart, cartProducts } = useStateContext()
 	return (
 		<div
-			className={`fixed right-0 top-[20%] translate-x-1 transition-all hover:translate-x-0`}
+			className={`fixed right-0 top-[20%] translate-x-1 cursor-pointer transition-all hover:translate-x-0`}
 			onClick={toggleCart}
 		>
 			<Badge
