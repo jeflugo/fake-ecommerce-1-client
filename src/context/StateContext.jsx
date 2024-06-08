@@ -24,10 +24,10 @@ export default function StateContext({ children }) {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
-	const selectSize = size => {
+	const selectSize = ({ size, stock }) => {
 		setSelectedSize(prev => {
-			if (size === prev) return
-			return size
+			if (size === prev?.size) return
+			return { size, stock }
 		})
 	}
 
@@ -45,12 +45,13 @@ export default function StateContext({ children }) {
 			img,
 			qty: 1,
 			totalPrice: finalPrice,
-			size: selectedSize,
+			size: selectedSize.size,
+			stock: selectedSize.stock,
 		}
 
 		if (productExist(_id)) {
 			const newProductIndex = cartProducts.findIndex(
-				product => product._id === _id && product.size === selectedSize,
+				product => product._id === _id && product.size === selectedSize.size,
 			)
 			newProduct = cartProducts[newProductIndex]
 			newProduct.qty = newProduct.qty + 1
@@ -60,20 +61,49 @@ export default function StateContext({ children }) {
 				newProduct,
 				...prev.slice(newProductIndex + 1),
 			])
-			toast.success(`${name}, size: ${selectedSize} added to cart.`)
 			setSelectedSize(null)
+			toast.success(
+				`${newProduct.name}, size: ${newProduct.size} added to cart.`,
+			)
 			return
 		}
 
-		setSelectedSize(null)
 		setCartProducts(prev => [...prev, newProduct])
-		toast.success(`${name}, size: ${selectedSize} added to cart.`)
+		setSelectedSize(null)
+		toast.success(`${newProduct.name}, size: ${newProduct.size} added to cart.`)
+	}
+
+	const addOne = (_id, size) => {
+		const productIndex = cartProducts.findIndex(
+			product => product._id === _id && product.size === size,
+		)
+		const product = cartProducts[productIndex]
+		product.qty = product.qty + 1
+
+		setCartProducts(prev => [
+			...prev.slice(0, productIndex),
+			product,
+			...prev.slice(productIndex + 1),
+		])
+	}
+	const removeOne = (_id, size) => {
+		const productIndex = cartProducts.findIndex(
+			product => product._id === _id && product.size === size,
+		)
+		const product = cartProducts[productIndex]
+		product.qty = product.qty - 1
+
+		setCartProducts(prev => [
+			...prev.slice(0, productIndex),
+			product,
+			...prev.slice(productIndex + 1),
+		])
 	}
 
 	function productExist(id) {
 		const existence =
 			cartProducts.findIndex(
-				product => id === product._id && product.size === selectedSize,
+				product => id === product._id && product.size === selectedSize.size,
 			) !== -1
 		return existence
 	}
@@ -98,6 +128,8 @@ export default function StateContext({ children }) {
 				cartProducts,
 				toggleCart,
 				showCart,
+				addOne,
+				removeOne,
 			}}
 		>
 			{children}
