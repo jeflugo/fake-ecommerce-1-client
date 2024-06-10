@@ -38,12 +38,7 @@ function Cart() {
 											))}
 										</div>
 										<div className='absolute bottom-0 left-0 w-full text-center'>
-											<Button
-												size='lg'
-												onClick={() => {
-													handleCheckout()
-												}}
-											>
+											<Button size='lg' onClick={handleCheckout}>
 												Go to checkout
 											</Button>
 										</div>
