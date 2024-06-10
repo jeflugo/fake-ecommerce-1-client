@@ -12,6 +12,7 @@ import { useEffect, useState } from 'react'
 import { client } from './lib/client'
 import CartButton from './components/CartButton'
 import { Toaster } from 'react-hot-toast'
+import Success from './components/Success'
 
 function App() {
 	const [products, setProducts] = useState()
@@ -30,6 +31,7 @@ function App() {
 					<Route path='/store' element={<Store />} />
 					<Route path='/register' element={<Register />} />
 					<Route path='/login' element={<Login />} />
+					<Route path='/successful-purchase' element={<Success />} />
 					{products &&
 						products.map(({ _id: id }, index) => (
 							<Route
