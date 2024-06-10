@@ -7,29 +7,32 @@ import MainImage from './MainImage'
 import Description from './Description'
 import { FaArrowLeft } from 'react-icons/fa'
 import { useNavigate } from 'react-router-dom'
-import { client } from '../../lib/client'
 import AddToCart from './AddToCart'
+import useFetching from '../../hooks/useFetching'
+import { Spinner } from '@material-tailwind/react'
 
 function ProductDetails({ id }) {
-	const [product, setProduct] = useState()
 	const [currentImage, setCurrentImage] = useState(0)
 	const navigate = useNavigate()
-
-	useEffect(() => {
-		const productsQuery = `*[_type=="product" && _id match '${id}'][0]{_id, name, slug, images, tags, sizes, price, discount, seasonDiscount}`
-
-		client.fetch(productsQuery).then(data => {
-			setProduct(data)
-		})
-	}, [id])
+	const [product, error, isError, isLoading, isSuccess] = useFetching(
+		`*[_type=="product" && _id match '${id}'][0]{_id, name, slug, images, tags, sizes, price, discount, seasonDiscount}`,
+	)
 
 	useEffect(() => {
 		window.scrollTo(0, 0)
 	}, [product])
 
+	if (isLoading)
+		return (
+			<div className='flex h-[65vh] items-center justify-center'>
+				<Spinner />
+			</div>
+		)
+	if (isError) return <div>{error}</div>
+
 	return (
 		<>
-			{product && (
+			{isSuccess && (
 				<div>
 					<div className='mx-auto max-w-96 px-1 py-6 lg:max-w-[800px]'>
 						<div>

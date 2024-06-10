@@ -1,22 +1,25 @@
-import { Button } from '@material-tailwind/react'
+import { Button, Spinner } from '@material-tailwind/react'
 import { HERO_BANNERS } from '../../constants'
 import { useStateContext } from '../../context/StateContext'
 import { Link } from 'react-router-dom'
-import { useEffect, useState } from 'react'
-import { client } from '../../lib/client'
+import useFetching from '../../hooks/useFetching'
 
 function HeroSection() {
 	const { SM, MD, LG } = HERO_BANNERS
 	const { md, lg, width } = useStateContext()
-	const [newestProduct, setNewestProduct] = useState()
-	useEffect(() => {
-		const productsQuery = `*[_type=="product" && isNewest][0]{name, _id, price}`
-
-		client.fetch(productsQuery).then(data => setNewestProduct(data))
-	}, [])
+	const [newestProduct, error, isError, isLoading, isSuccess] = useFetching(
+		'*[_type=="product" && isNewest][0]{name, _id, price}',
+	)
+	if (isLoading)
+		return (
+			<div className='flex h-[300px] items-center justify-center'>
+				<Spinner />
+			</div>
+		)
+	if (isError) return <div>{error}</div>
 	return (
 		<>
-			{newestProduct && (
+			{isSuccess && (
 				<div className='relative lg:bg-gray-50 lg:py-6'>
 					{width < md && <img src={SM} className='w-full' />}
 					{width > md && width < lg && <img src={MD} className='w-full' />}

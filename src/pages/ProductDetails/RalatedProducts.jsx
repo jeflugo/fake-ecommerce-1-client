@@ -1,17 +1,16 @@
 import { useEffect, useState } from 'react'
-import { client, urlFor } from '../../lib/client'
+import { urlFor } from '../../lib/client'
 import ProductOverlay from '../../components/ProductOverlay'
+import { Spinner } from '@material-tailwind/react'
+import useFetching from '../../hooks/useFetching'
 
 function RalatedProducts({ currentId }) {
 	const [visibleOverlay, setVisibleOverlay] = useState()
 	const seeOverlay = index => setVisibleOverlay(index)
-	const [products, setProducts] = useState()
 
-	useEffect(() => {
-		const productsQuery = `*[_type=="product"][0...7]{ images[0], name, price, _id, discount, seasonDiscount, sizes }`
-
-		client.fetch(productsQuery).then(data => setProducts(data))
-	}, [])
+	const [products, error, isError, isLoading, isSuccess] = useFetching(
+		`*[_type=="product"][0...7]{ images[0], name, price, _id, discount, seasonDiscount, sizes }`,
+	)
 
 	useEffect(() => {
 		if (products) {
@@ -20,9 +19,17 @@ function RalatedProducts({ currentId }) {
 		}
 	}, [products])
 
+	if (isLoading)
+		return (
+			<div className='flex h-[35vh] items-center justify-center'>
+				<Spinner />
+			</div>
+		)
+	if (isError) return <div>{error}</div>
+
 	return (
 		<>
-			{products && (
+			{isSuccess && (
 				<div>
 					<h3 className='mb-4 ml-2 text-xl font-medium'>Ralated products</h3>
 					<div className={`relative flex h-[300px] justify-end`}>
@@ -49,7 +56,8 @@ function RalatedProducts({ currentId }) {
 											<div
 												key={index}
 												className={`relative block h-[300px] w-[300px] -rotate-90`}
-												onMouseOver={() => seeOverlay(index)}
+												onMouseEnter={() => seeOverlay(index)}
+												onMouseLeave={() => seeOverlay()}
 											>
 												{visibleOverlay === index ? (
 													<ProductOverlay
