@@ -1,9 +1,10 @@
 import { Helmet } from 'react-helmet-async'
+import ScrollToTop from '../../components/ScrollToTop'
+
 import HeroSection from './HeroSection'
 import CategoriesSection from './CategoriesSection'
-import SeasonOffers from './SeasonOffers'
 import BestSellers from './BestSellers'
-import ScrollToTop from '../../components/ScrollToTop'
+import SeasonOffers from './SeasonOffers'
 
 function Home() {
 	return (
@@ -12,12 +13,10 @@ function Home() {
 			<Helmet>
 				<title>glu - Home</title>
 			</Helmet>
-			<div>
-				<HeroSection />
-				<CategoriesSection />
-				<SeasonOffers />
-				<BestSellers />
-			</div>
+			<HeroSection />
+			<CategoriesSection />
+			<SeasonOffers />
+			<BestSellers />
 		</>
 	)
 }
