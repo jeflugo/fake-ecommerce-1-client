@@ -362,6 +362,8 @@ const SEARCH_CATEGORIES = [
 
 const ORDER_BY_OPTIONS = ['Newest', 'Price up', 'Price down']
 
+const COMPANY_EMAIL = 'asd@gmail.com'
+
 export {
 	HERO_BANNERS,
 	CATEGORIES_PHOTOS,
