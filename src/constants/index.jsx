@@ -362,7 +362,7 @@ const SEARCH_CATEGORIES = [
 
 const ORDER_BY_OPTIONS = ['Newest', 'Price up', 'Price down']
 
-const COMPANY_EMAIL = 'asd@gmail.com'
+const COMPANY_EMAIL = 'company@glu.com'
 
 export {
 	HERO_BANNERS,
