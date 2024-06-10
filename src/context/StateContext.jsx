@@ -7,12 +7,15 @@ const sm = 330
 const md = 720
 const lg = 1000
 
+const initialCartProducts =
+	JSON.parse(localStorage.getItem('cartProducts')) || []
+
 export default function StateContext({ children }) {
 	const [width, setWidth] = useState(window.innerWidth)
 	// const [user, setUser] = useState()
 	// const [favProducts, setFavsProducts] = useState([])
 	const [showCart, setShowCart] = useState(false)
-	const [cartProducts, setCartProducts] = useState([])
+	const [cartProducts, setCartProducts] = useState(initialCartProducts)
 	const [category, setCategory] = useState()
 	const [selectedSize, setSelectedSize] = useState()
 
@@ -24,13 +27,12 @@ export default function StateContext({ children }) {
 		return () => window.removeEventListener('resize', handleResize)
 	}, [])
 
+	//* PRODUCTS
 	const toggleCart = () => setShowCart(!showCart)
 
 	const selectSize = ({ size, stock }) => {
-		setSelectedSize(prev => {
-			if (size === prev?.size) return
-			return { size, stock }
-		})
+		if (size === selectedSize?.size) return
+		setSelectedSize({ size, stock })
 	}
 
 	const addToCart = (_id, name, img, price, discount, seasonDiscount) => {
@@ -45,6 +47,7 @@ export default function StateContext({ children }) {
 			img,
 			qty: 1,
 			totalPrice: finalPrice,
+			unitPrice: finalPrice,
 			size: selectedSize.size,
 			stock: selectedSize.stock,
 		}
@@ -56,11 +59,14 @@ export default function StateContext({ children }) {
 			newProduct = cartProducts[newProductIndex]
 			newProduct.qty = newProduct.qty + 1
 
-			setCartProducts(prev => [
-				...prev.slice(0, newProductIndex),
+			const newCartProducts = [
+				...cartProducts.slice(0, newProductIndex),
 				newProduct,
-				...prev.slice(newProductIndex + 1),
-			])
+				...cartProducts.slice(newProductIndex + 1),
+			]
+
+			setCartProducts(newCartProducts)
+			localStorage.setItem('cartProducts', JSON.stringify(newCartProducts))
 			setSelectedSize(null)
 			toast.success(
 				`${newProduct.name}, size: ${newProduct.size} added to cart.`,
@@ -68,20 +74,21 @@ export default function StateContext({ children }) {
 			return
 		}
 
-		setCartProducts(prev => [...prev, newProduct])
+		const newCartProducts = [...cartProducts, newProduct]
+		setCartProducts(newCartProducts)
+		localStorage.setItem('cartProducts', JSON.stringify(newCartProducts))
 		setSelectedSize(null)
 		toast.success(`${newProduct.name}, size: ${newProduct.size} added to cart.`)
 	}
 
 	const removeFromCart = (_id, size) => {
 		const newCartProducts = cartProducts.filter(product => {
-			// console.log('_id !== product._id: ', _id !== product._id)
-			// console.log('size !== product.size: ', size !== product.size)
 			if (_id !== product._id) return true
 			if (_id === product._id && size !== product.size) return true
 			return false
 		})
 		setCartProducts(newCartProducts)
+		localStorage.setItem('cartProducts', JSON.stringify(newCartProducts))
 	}
 
 	const addOne = (_id, size) => {
@@ -89,13 +96,17 @@ export default function StateContext({ children }) {
 			product => product._id === _id && product.size === size,
 		)
 		const product = cartProducts[productIndex]
-		product.qty = product.qty + 1
+		product.qty++
+		product.totalPrice += product.unitPrice
 
-		setCartProducts(prev => [
-			...prev.slice(0, productIndex),
+		const newCartProducts = [
+			...cartProducts.slice(0, productIndex),
 			product,
-			...prev.slice(productIndex + 1),
-		])
+			...cartProducts.slice(productIndex + 1),
+		]
+
+		setCartProducts(newCartProducts)
+		localStorage.setItem('cartProducts', JSON.stringify(newCartProducts))
 	}
 
 	const removeOne = (_id, size) => {
@@ -103,29 +114,59 @@ export default function StateContext({ children }) {
 			product => product._id === _id && product.size === size,
 		)
 		const product = cartProducts[productIndex]
-		product.qty = product.qty - 1
+		product.qty--
+		product.totalPrice -= product.unitPrice
 
-		setCartProducts(prev => [
-			...prev.slice(0, productIndex),
+		const newCartProducts = [
+			...cartProducts.slice(0, productIndex),
 			product,
-			...prev.slice(productIndex + 1),
-		])
+			...cartProducts.slice(productIndex + 1),
+		]
+
+		setCartProducts(newCartProducts)
+		localStorage.setItem('cartProducts', JSON.stringify(newCartProducts))
 	}
 
+	const handleCheckout = async () => {
+		const serverUrl = import.meta.env.VITE_SERVER_URL
+			? import.meta.env.VITE_SERVER_URL
+			: 'http://localhost:3000'
+
+		const response = await fetch(`${serverUrl}/create-checkout-session`, {
+			method: 'POST',
+
+			headers: {
+				'Content-Type': 'application/json',
+			},
+			body: JSON.stringify(cartProducts),
+		})
+
+		if (response.statusCode === 500) return
+
+		const session = await response.json()
+
+		toast.loading('Redirecting...')
+
+		window.location = session.url
+	}
+
+	const resetStore = () => {
+		localStorage.clear()
+		setCartProducts([])
+	}
+
+	//* USER
+	const addToFavs = () => {
+		toast.success('Added to favs successfully')
+	}
+
+	//* UTILS
 	function productExist(id) {
 		const existence =
 			cartProducts.findIndex(
 				product => id === product._id && product.size === selectedSize.size,
 			) !== -1
 		return existence
-	}
-
-	const addToFavs = () => {
-		toast.success('Added to favs successfully')
-	}
-
-	const handleCheckout = () => {
-		console.log('checkout')
 	}
 
 	return (
@@ -148,6 +189,7 @@ export default function StateContext({ children }) {
 				removeOne,
 				removeFromCart,
 				handleCheckout,
+				resetStore,
 			}}
 		>
 			{children}
