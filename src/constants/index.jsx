@@ -364,6 +364,13 @@ const ORDER_BY_OPTIONS = ['Newest', 'Price up', 'Price down']
 
 const COMPANY_EMAIL = 'company@glu.com'
 
+const FETCHING_STATUS = {
+	IDLE: 'idle',
+	LOADING: 'loading',
+	SUCCESS: 'success',
+	ERROR: 'error',
+}
+
 export {
 	HERO_BANNERS,
 	CATEGORIES_PHOTOS,
@@ -375,4 +382,5 @@ export {
 	SEARCH_CATEGORIES,
 	ORDER_BY_OPTIONS,
 	COMPANY_EMAIL,
+	FETCHING_STATUS,
 }
