@@ -10,12 +10,12 @@ import { useState, useEffect } from 'react'
 import { client } from '../../lib/client'
 import { ORDER_BY_OPTIONS } from '../../constants'
 import ScrollToTop from '../../components/ScrollToTop'
+import { Spinner } from '@material-tailwind/react'
 
 function Store() {
-	const { width, lg } = useStateContext()
+	const { width, lg, category } = useStateContext()
 	const [shownProducts, setShownProducts] = useState()
 
-	const { category } = useStateContext()
 	const [orderByOption, setOrderByOption] = useState(ORDER_BY_OPTIONS[0])
 
 	useEffect(() => {
@@ -78,9 +78,9 @@ function Store() {
 										{category.subCatName}&quot; category
 									</h2>
 								) : (
-									<h2 className='mx-auto text-center text-2xl font-medium'>
-										Nothing to show yet
-									</h2>
+									<div className='flex h-[200px] w-full items-center justify-center'>
+										<Spinner />
+									</div>
 								)}
 							</>
 						)}
@@ -102,9 +102,9 @@ function Store() {
 											category
 										</h2>
 									) : (
-										<h2 className='mx-auto text-center text-2xl font-medium'>
-											Nothing to show yet
-										</h2>
+										<div className='flex h-[400px] w-full items-center justify-center'>
+											<Spinner />
+										</div>
 									)}
 								</>
 							)}
