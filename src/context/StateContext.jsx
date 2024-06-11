@@ -12,7 +12,7 @@ const initialCartProducts =
 
 export default function StateContext({ children }) {
 	const [width, setWidth] = useState(window.innerWidth)
-	// const [user, setUser] = useState()
+	const [user, setUser] = useState()
 	// const [favProducts, setFavsProducts] = useState([])
 	const [showCart, setShowCart] = useState(false)
 	const [cartProducts, setCartProducts] = useState(initialCartProducts)
@@ -190,6 +190,8 @@ export default function StateContext({ children }) {
 				removeFromCart,
 				handleCheckout,
 				resetStore,
+				user,
+				setUser,
 			}}
 		>
 			{children}
