@@ -2,19 +2,42 @@ import { Button } from '@material-tailwind/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Container from '../../components/Container'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { client } from '../../lib/client'
+import { v4 } from 'uuid'
+import { toast } from 'react-hot-toast'
+import { useStateContext } from '../../context/StateContext'
+
 const initialFormData = {
 	name: '',
 	email: '',
 	password: '',
 	password2: '',
 }
-function Login() {
+
+function Register() {
 	const [formData, setFormData] = useState(initialFormData)
 	const { name, email, password, password2 } = formData
+	const navigate = useNavigate()
 
 	const handleChange = e =>
 		setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
+
+	const handleSubmit = e => {
+		e.preventDefault()
+
+		if (password !== password2) return toast.error('Passwords do not match')
+
+		const newUserDocument = {
+			_id: v4(),
+			_type: 'user',
+			userName: name,
+			email,
+			password,
+		}
+
+		client.createIfNotExists(newUserDocument).then(() => navigate('/login'))
+	}
 
 	return (
 		<>
@@ -24,7 +47,7 @@ function Login() {
 			<div className='py-6'>
 				<Container cName='max-w-2xl'>
 					<h2 className='mb-6 text-center text-3xl'>Register</h2>
-					<form className='mb-6 flex flex-col gap-4'>
+					<form className='mb-6 flex flex-col gap-4' onSubmit={handleSubmit}>
 						<input
 							type='text'
 							name='name'
@@ -73,4 +96,4 @@ function Login() {
 	)
 }
 
-export default Login
+export default Register
