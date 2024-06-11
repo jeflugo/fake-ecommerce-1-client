@@ -10,12 +10,13 @@ import { useNavigate } from 'react-router-dom'
 import AddToCart from './AddToCart'
 import useFetching from '../../hooks/useFetching'
 import { Spinner } from '@material-tailwind/react'
+import Rating from '../../components/Rating'
 
 function ProductDetails({ id }) {
 	const [currentImage, setCurrentImage] = useState(0)
 	const navigate = useNavigate()
 	const [product, error, isError, isLoading, isSuccess] = useFetching(
-		`*[_type=="product" && _id match '${id}'][0]{_id, name, slug, images, tags, sizes, price, discount, seasonDiscount}`,
+		`*[_type=="product" && _id match '${id}'][0]{_id, name, slug, images, tags, sizes, rating, price, discount, seasonDiscount}`,
 	)
 
 	useEffect(() => {
@@ -63,6 +64,10 @@ function ProductDetails({ id }) {
 							</div>
 							<div className='lg:w-[300px]'>
 								<Description />
+								<div className='mb-2'>
+									<h3>Rating</h3>
+									<Rating rating={product.rating} />
+								</div>
 								<Sizes sizes={product.sizes} />
 								<AddToCart
 									name={product.name}
