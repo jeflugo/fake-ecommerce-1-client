@@ -10,7 +10,6 @@ import {
 	Tooltip,
 } from '@material-tailwind/react'
 import Container from '../../components/Container'
-import { useNavigate } from 'react-router-dom'
 import { AiOutlineSetting } from 'react-icons/ai'
 import { client } from '../../lib/client'
 import Product from '../../components/Product'
@@ -21,23 +20,21 @@ export default function Dashboard() {
 		`*[_type=="user" && email match '${user.email}'][0]`,
 	)
 	const [favorites, setFavorites] = useState([])
+	const { logout, favProducts } = useStateContext()
 
 	useEffect(() => {
-		if (currentUser) {
-			currentUser.favorites.forEach(fav => {
-				const query = `*[_type=="product" && slug.current match '${fav}'][0] {name,	price, images[0],	_id, slug,	discount,	seasonDiscount,	sizes }`
-				client.fetch(query).then(data => setFavorites(prev => [...prev, data]))
+		let addedFilters = ''
+			favProducts.forEach((fav,index) => {
+				if(index === favProducts.length-1) return addedFilters = addedFilters + `slug.current match '${fav}'` 
+
+				addedFilters = addedFilters + `slug.current match '${fav}' || `
 			})
-		}
-	}, [currentUser])
+				const query = `*[_type=="product" && ${addedFilters}] {name,	price, images[0],	_id, slug,	discount,	seasonDiscount,	sizes }`
+				client.fetch(query).then(data => {
+					setFavorites(data)
+				})	
+	}, [favProducts])
 
-	const navigate = useNavigate()
-	const { setUser } = useStateContext()
-
-	const logout = () => {
-		navigate('/')
-		setUser()
-	}
 
 	if (isLoading)
 		return (
@@ -90,7 +87,7 @@ export default function Dashboard() {
 									))}
 								</div>
 							) : (
-								<h3 className='w-full text-center text-lg'>
+								<h3 className='w-full text-center text-lg h-[50vh]'>
 									You have no favorite products yet
 								</h3>
 							)}

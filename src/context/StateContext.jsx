@@ -13,12 +13,18 @@ const lg = 1000
 const initialCartProducts =
 	JSON.parse(localStorage.getItem('cartProducts')) || []
 
+const initialFavoriteProducts =
+	JSON.parse(localStorage.getItem('favProducts')) || []
+
+const initialUser =
+	JSON.parse(localStorage.getItem('user')) || null
+
 export default function StateContext({ children }) {
 	const [width, setWidth] = useState(window.innerWidth)
-	const [user, setUser] = useState()
-	// const [favProducts, setFavsProducts] = useState([])
-	const [showCart, setShowCart] = useState(false)
+	const [user, setUser] = useState(initialUser)
+	const [favProducts, setFavProducts] = useState(initialFavoriteProducts)
 	const [cartProducts, setCartProducts] = useState(initialCartProducts)
+	const [showCart, setShowCart] = useState(false)
 	const [category, setCategory] = useState()
 	const [selectedSize, setSelectedSize] = useState()
 
@@ -168,8 +174,18 @@ export default function StateContext({ children }) {
 			if (!data) return toast.error('Invalid credentials.')
 
 			setUser(data)
+			setFavProducts(data.favorites)
+			localStorage.setItem('user', JSON.stringify(data))
+			localStorage.setItem('favProducts', JSON.stringify(data.favorites))
 			navigate(`/dashboard`)
 		})
+	}
+
+	const logout = () => {
+		navigate('/')
+		setUser()
+		localStorage.removeItem('user')
+		localStorage.removeItem('favProducts')
 	}
 
 	const register = (name, email, password, password2) => {
@@ -188,27 +204,21 @@ export default function StateContext({ children }) {
 	}
 
 	const addToFavs = slug => {
-		client
-			.fetch(`*[_type=='user' && email match '${user.email}'][0]`)
-			.then(data => {
-				const newUser = data
-				newUser.favorites.push(slug.current)
-				console.log(newUser)
-				client.createOrReplace(newUser).then(() => {
-					toast.success('Added to favs successfully')
-				})
-			})
+		const newFavorites = [...favProducts, slug.current] 
+		setFavProducts(newFavorites)
+		localStorage.setItem('favProducts', JSON.stringify(newFavorites))
+		client.patch(user._id).set({favorites:newFavorites}).commit().then(() => {
+			toast.success('Added to favs successfully')
+		})
 	}
+
 	const removeFromFavs = slug => {
-		client
-			.fetch(`*[_type=='user' && email match '${user.email}'][0]`)
-			.then(data => {
-				const newUser = data
-				newUser.favorites.pop(slug.current)
-				client.createOrReplace(newUser).then(() => {
-					toast.success('Removed from favs successfully')
-				})
-			})
+		const newFavorites = favProducts.filter((fav) => slug.current !== fav) 
+		setFavProducts(newFavorites)
+		localStorage.setItem('favProducts', JSON.stringify(newFavorites))
+		client.patch(user._id).set({favorites:newFavorites}).commit().then(() => {
+			toast.success('Removed from favs successfully')
+		})
 	}
 
 	//* UTILS
@@ -246,6 +256,8 @@ export default function StateContext({ children }) {
 				removeFromFavs,
 				login,
 				register,
+				logout,
+				favProducts
 			}}
 		>
 			{children}
