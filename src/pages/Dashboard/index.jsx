@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react'
 import { useStateContext } from '../../context/StateContext'
 import useFetching from '../../hooks/useFetching'
 import {
@@ -11,12 +12,24 @@ import {
 import Container from '../../components/Container'
 import { useNavigate } from 'react-router-dom'
 import { AiOutlineSetting } from 'react-icons/ai'
+import { client } from '../../lib/client'
+import Product from '../../components/Product'
 
 export default function Dashboard() {
 	const { user } = useStateContext()
 	const [currentUser, error, isError, isLoading, isSuccess] = useFetching(
 		`*[_type=="user" && email match '${user.email}'][0]`,
 	)
+	const [favorites, setFavorites] = useState([])
+
+	useEffect(() => {
+		if (currentUser) {
+			currentUser.favorites.forEach(fav => {
+				const query = `*[_type=="product" && slug.current match '${fav}'][0] {name,	price, images[0],	_id, slug,	discount,	seasonDiscount,	sizes }`
+				client.fetch(query).then(data => setFavorites(prev => [...prev, data]))
+			})
+		}
+	}, [currentUser])
 
 	const navigate = useNavigate()
 	const { setUser } = useStateContext()
@@ -70,14 +83,10 @@ export default function Dashboard() {
 								</span>{' '}
 								favorite products
 							</h2>
-							{currentUser.favorites.length !== 0 ? (
-								<div className='flex gap-3'>
-									{currentUser.favorites.map(fav => (
-										// <Product key={fav._id} {...fav} />
-										<>
-											<div key={fav}>{fav}</div>
-											<span>{currentUser.favorites.length}</span>
-										</>
+							{favorites.length !== 0 ? (
+								<div className='mx-auto grid w-full max-w-[1100px] place-items-center md:grid-cols-2 lg:grid-cols-3 gap-3 content-center'>
+									{favorites.map(fav => (
+										<Product key={fav._id} {...fav} />
 									))}
 								</div>
 							) : (
