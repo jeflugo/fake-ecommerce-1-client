@@ -20,7 +20,7 @@ export default function AddToCart({
 	return (
 		<Popover placement='top-end'>
 			<PopoverHandler>
-				<button title='asd'>
+				<button>
 					<BiPlus
 						size={30}
 						className='transition-all hover:scale-125 active:scale-100'
