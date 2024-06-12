@@ -11,12 +11,12 @@ const root = document.getElementById('root')
 
 createRoot(root).render(
 	<StrictMode>
-		<StateContext>
-			<HelmetProvider>
-				<Router>
+		<Router>
+			<StateContext>
+				<HelmetProvider>
 					<App />
-				</Router>
-			</HelmetProvider>
-		</StateContext>
+				</HelmetProvider>
+			</StateContext>
+		</Router>
 	</StrictMode>,
 )
