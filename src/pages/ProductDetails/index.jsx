@@ -12,11 +12,11 @@ import useFetching from '../../hooks/useFetching'
 import { Spinner } from '@material-tailwind/react'
 import Rating from '../../components/Rating'
 
-function ProductDetails({ id }) {
+function ProductDetails({ _id }) {
 	const [currentImage, setCurrentImage] = useState(0)
 	const navigate = useNavigate()
 	const [product, error, isError, isLoading, isSuccess] = useFetching(
-		`*[_type=="product" && _id match '${id}'][0]{_id, name, slug, images, tags, sizes, rating, price, discount, seasonDiscount}`,
+		`*[_type=="product" && _id match '${_id}'][0]{_id, name, slug, images, tags, sizes, rating, price, discount, seasonDiscount}`,
 	)
 
 	useEffect(() => {
@@ -80,7 +80,7 @@ function ProductDetails({ id }) {
 							</div>
 						</div>
 					</div>
-					<RalatedProducts currentId={id} />
+					<RalatedProducts currentId={_id} />
 				</div>
 			)}
 		</>

@@ -1,9 +1,10 @@
 import { Route, Routes } from 'react-router-dom'
-import { lazy } from 'react'
+import { lazy, useEffect, useState } from 'react'
 
 import MainContainer from './components/MainContainer'
-import useFetching from './hooks/useFetching'
+import { client } from './lib/client'
 
+const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Home = lazy(() => import('./pages/Home'))
 const Store = lazy(() => import('./pages/Store'))
 const PageNotFound = lazy(() => import('./pages/PageNotFound'))
@@ -13,9 +14,13 @@ const Register = lazy(() => import('./pages/Register'))
 const Login = lazy(() => import('./pages/Login'))
 
 function App() {
-	const [productsIds, error, isError, isLoading, isSuccess] = useFetching(
-		'*[_type=="product"]{_id}',
-	)
+	const [productsInfo, setProductsInfo] = useState()
+
+	useEffect(() => {
+		const infoQuery = '*[_type=="product"]{_id, slug}'
+		client.fetch(infoQuery).then(data => setProductsInfo(data))
+	}, [])
+
 	return (
 		<Routes>
 			<Route path='/' element={<MainContainer />}>
@@ -23,13 +28,14 @@ function App() {
 				<Route path='/store' element={<Store />} />
 				<Route path='/register' element={<Register />} />
 				<Route path='/login' element={<Login />} />
+				<Route path='/dashboard' element={<Dashboard />} />
 				<Route path='/successful-purchase' element={<Success />} />
-				{isSuccess &&
-					productsIds.map(({ _id: id }, index) => (
+				{productsInfo &&
+					productsInfo.map(({ slug, _id }, index) => (
 						<Route
 							key={index}
-							path={`/store/${id}`}
-							element={<ProductDetails id={id} />}
+							path={`/store/${slug.current}`}
+							element={<ProductDetails slug={slug} _id={_id} />}
 						/>
 					))}
 

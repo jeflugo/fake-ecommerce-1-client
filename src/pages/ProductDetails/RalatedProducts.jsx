@@ -9,7 +9,7 @@ function RalatedProducts({ currentId }) {
 	const seeOverlay = index => setVisibleOverlay(index)
 
 	const [products, error, isError, isLoading, isSuccess] = useFetching(
-		`*[_type=="product"][0...7]{ images[0], name, price, _id, discount, seasonDiscount, sizes }`,
+		`*[_type=="product"][0...7]{ images[0], name, price, _id, slug, discount, seasonDiscount, sizes }`,
 	)
 
 	useEffect(() => {
@@ -45,6 +45,7 @@ function RalatedProducts({ currentId }) {
 										name,
 										price,
 										_id,
+										slug,
 										discount,
 										seasonDiscount,
 										sizes,
@@ -66,6 +67,7 @@ function RalatedProducts({ currentId }) {
 														price={price}
 														name={name}
 														_id={_id}
+														slug={slug}
 														img={img}
 														sizes={sizes}
 													/>

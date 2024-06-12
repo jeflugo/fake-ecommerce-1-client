@@ -9,6 +9,7 @@ export default function ProductOverlay({
 	price,
 	name,
 	_id,
+	slug,
 	img,
 	sizes,
 }) {
@@ -19,7 +20,7 @@ export default function ProductOverlay({
 			className='absolute left-0 top-0 flex h-full w-full select-none p-6 text-white'
 		>
 			<Link
-				to={`/store/${_id}`}
+				to={`/store/${slug.current}`}
 				className='absolute left-0 top-0 z-10 h-full w-full bg-black'
 			/>
 

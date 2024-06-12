@@ -8,7 +8,7 @@ function HeroSection() {
 	const { SM, MD, LG } = HERO_BANNERS
 	const { md, lg, width } = useStateContext()
 	const [newestProduct, error, isError, isLoading, isSuccess] = useFetching(
-		'*[_type=="product" && isNewest][0]{name, _id, price}',
+		'*[_type=="product" && isNewest][0]{name, slug, price, discount}',
 	)
 	if (isLoading)
 		return (
@@ -31,7 +31,7 @@ function HeroSection() {
 								<span className='underline'>NEW</span> {newestProduct.name}
 							</h1>
 							<div className='flex justify-center gap-4 lg:justify-start'>
-								<Link to={`/store/${newestProduct._id}`}>
+								<Link to={`/store/${newestProduct.slug.current}`}>
 									<Button size='lg'>Buy now</Button>
 								</Link>
 								<div>
@@ -39,7 +39,10 @@ function HeroSection() {
 										${newestProduct.price}
 									</p>
 									<p className='text-green-600'>
-										${newestProduct.price / 2} (50% Off)
+										$
+										{newestProduct.price -
+											newestProduct.price * (newestProduct.discount / 100)}{' '}
+										({newestProduct.discount}% Off)
 									</p>
 								</div>
 							</div>

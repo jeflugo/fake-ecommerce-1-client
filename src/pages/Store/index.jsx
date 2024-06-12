@@ -44,7 +44,7 @@ function Store() {
 			orderByFilter += ` | order(_createdAt desc)`
 		}
 
-		const productsQuery = `*[_type=="product"${filtersQuery !== '' ? filtersQuery : ''}]${orderByFilter !== '' ? orderByFilter : ''} { name, price, images[0], _id, _createdAt, discount, seasonDiscount, sizes }`
+		const productsQuery = `*[_type=="product"${filtersQuery !== '' ? filtersQuery : ''}]${orderByFilter !== '' ? orderByFilter : ''} { name, price, images[0], _id, slug, _createdAt, discount, seasonDiscount, sizes }`
 
 		client.fetch(productsQuery).then(data => setShownProducts(data))
 	}, [category, orderByOption])
