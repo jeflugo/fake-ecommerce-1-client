@@ -2,11 +2,8 @@ import { Button } from '@material-tailwind/react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import Container from '../../components/Container'
-import { Link, useNavigate } from 'react-router-dom'
-import { client } from '../../lib/client'
-import toast from 'react-hot-toast'
+import { Link } from 'react-router-dom'
 import { useStateContext } from '../../context/StateContext'
-// import { client } from '../../lib/client'
 
 const initialFormData = {
 	email: '',
@@ -15,24 +12,16 @@ const initialFormData = {
 function Login() {
 	const [formData, setFormData] = useState(initialFormData)
 	const { email, password } = formData
-	const navigate = useNavigate()
-	const { setUser } = useStateContext()
+
+	const { login } = useStateContext()
 
 	const handleChange = e => {
 		setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
 	}
-
 	const handleSubmit = e => {
 		e.preventDefault()
 
-		const userQuery = `*[_type=="user" && email match '${email}' && password match '${password}'][0]`
-
-		client.fetch(userQuery).then(data => {
-			if (!data) return toast.error('Invalid credentials.')
-
-			setUser({ email: data.email, userName: data.userName })
-			navigate(`/dashboard`)
-		})
+		login(email, password)
 	}
 
 	return (

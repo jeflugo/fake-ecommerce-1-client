@@ -18,7 +18,8 @@ const initialFormData = {
 function Register() {
 	const [formData, setFormData] = useState(initialFormData)
 	const { name, email, password, password2 } = formData
-	const navigate = useNavigate()
+
+	const { register } = useStateContext()
 
 	const handleChange = e =>
 		setFormData(prev => ({ ...prev, [e.target.name]: e.target.value }))
@@ -26,18 +27,7 @@ function Register() {
 	const handleSubmit = e => {
 		e.preventDefault()
 
-		if (password !== password2) return toast.error('Passwords do not match')
-
-		const newUserDocument = {
-			_id: v4(),
-			_type: 'user',
-			userName: name,
-			email,
-			password,
-			favorites: [],
-		}
-
-		client.createIfNotExists(newUserDocument).then(() => navigate('/login'))
+		register(name, email, password, password2)
 	}
 
 	return (

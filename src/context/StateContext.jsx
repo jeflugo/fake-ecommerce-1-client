@@ -1,6 +1,8 @@
 import { useState, useEffect, createContext, useContext } from 'react'
 import { toast } from 'react-hot-toast'
 import { client } from '../lib/client'
+import { useNavigate } from 'react-router-dom'
+import { v4 } from 'uuid'
 
 const Context = createContext()
 
@@ -19,6 +21,8 @@ export default function StateContext({ children }) {
 	const [cartProducts, setCartProducts] = useState(initialCartProducts)
 	const [category, setCategory] = useState()
 	const [selectedSize, setSelectedSize] = useState()
+
+	const navigate = useNavigate()
 
 	useEffect(() => {
 		const handleResize = () => setWidth(window.innerWidth)
@@ -157,16 +161,52 @@ export default function StateContext({ children }) {
 	}
 
 	//* USER
-	const addToFavs = slug => {
-		if (!user) return toast.error('Login required for this functionality')
+	const login = (email, password) => {
+		const userQuery = `*[_type=="user" && email match '${email}' && password match '${password}'][0] {_id, email, userName, favorites}`
 
+		client.fetch(userQuery).then(data => {
+			if (!data) return toast.error('Invalid credentials.')
+
+			setUser(data)
+			navigate(`/dashboard`)
+		})
+	}
+
+	const register = (name, email, password, password2) => {
+		if (password !== password2) return toast.error('Passwords do not match')
+
+		const newUserDocument = {
+			_id: v4(),
+			_type: 'user',
+			userName: name,
+			email,
+			password,
+			favorites: [],
+		}
+
+		client.createIfNotExists(newUserDocument).then(() => navigate('/login'))
+	}
+
+	const addToFavs = slug => {
 		client
 			.fetch(`*[_type=='user' && email match '${user.email}'][0]`)
 			.then(data => {
 				const newUser = data
 				newUser.favorites.push(slug.current)
+				console.log(newUser)
 				client.createOrReplace(newUser).then(() => {
 					toast.success('Added to favs successfully')
+				})
+			})
+	}
+	const removeFromFavs = slug => {
+		client
+			.fetch(`*[_type=='user' && email match '${user.email}'][0]`)
+			.then(data => {
+				const newUser = data
+				newUser.favorites.pop(slug.current)
+				client.createOrReplace(newUser).then(() => {
+					toast.success('Removed from favs successfully')
 				})
 			})
 	}
@@ -203,6 +243,9 @@ export default function StateContext({ children }) {
 				resetStore,
 				user,
 				setUser,
+				removeFromFavs,
+				login,
+				register,
 			}}
 		>
 			{children}
