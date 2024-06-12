@@ -26,7 +26,7 @@ export default function ProductOverlay({
 
 			<div className='absolute right-0 top-0 z-30 flex pr-6 pt-6'>
 				<div className='flex gap-2'>
-					<AddToFavs />
+					<AddToFavs slug={slug} />
 					<AddToCart
 						discount={discount}
 						seasonDiscount={seasonDiscount}

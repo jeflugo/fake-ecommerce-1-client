@@ -1,5 +1,6 @@
 import { useState, useEffect, createContext, useContext } from 'react'
 import { toast } from 'react-hot-toast'
+import { client } from '../lib/client'
 
 const Context = createContext()
 
@@ -156,8 +157,18 @@ export default function StateContext({ children }) {
 	}
 
 	//* USER
-	const addToFavs = () => {
-		toast.success('Added to favs successfully')
+	const addToFavs = slug => {
+		if (!user) return toast.error('Login required for this functionality')
+
+		client
+			.fetch(`*[_type=='user' && email match '${user.email}'][0]`)
+			.then(data => {
+				const newUser = data
+				newUser.favorites.push(slug.current)
+				client.createOrReplace(newUser).then(() => {
+					toast.success('Added to favs successfully')
+				})
+			})
 	}
 
 	//* UTILS

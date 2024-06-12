@@ -34,6 +34,7 @@ function Register() {
 			userName: name,
 			email,
 			password,
+			favorites: [],
 		}
 
 		client.createIfNotExists(newUserDocument).then(() => navigate('/login'))
