@@ -1,6 +1,6 @@
-import AddToFavs from '../../components/AddToFavs'
-import AddToCart from '../../components/AddToCart'
-import { urlFor } from '../../lib/client'
+import AddToFavs from './AddToFavs'
+import AddToCart from './AddToCart'
+import { urlFor } from '../lib/client'
 import { Link } from 'react-router-dom'
 
 function Product({
@@ -8,6 +8,7 @@ function Product({
 	price,
 	images: img,
 	_id,
+	slug,
 	discount,
 	seasonDiscount,
 	sizes,
@@ -28,7 +29,7 @@ function Product({
 					/>
 				</div>
 			</div>
-			<Link to={`/store/${_id}`}>
+			<Link to={`/store/${slug.current}`}>
 				<img src={urlFor(img)} className='w-full' />
 			</Link>
 			<h3 className='absolute bottom-0 flex w-full items-center justify-between px-6 pb-6 text-lg font-medium'>
