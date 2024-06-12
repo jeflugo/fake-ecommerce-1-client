@@ -209,6 +209,12 @@ export default function StateContext({ children }) {
 		localStorage.setItem('favProducts', JSON.stringify(newFavorites))
 		client.patch(user._id).set({favorites:newFavorites}).commit().then(() => {
 			toast.success('Added to favs successfully')
+		}).catch((err) => {
+			setFavProducts((prev) => {
+				return prev.filter((fav) => slug.current !== fav)
+			})
+			toast.error('Something went wrong.')
+			console.log(err)
 		})
 	}
 
@@ -218,6 +224,12 @@ export default function StateContext({ children }) {
 		localStorage.setItem('favProducts', JSON.stringify(newFavorites))
 		client.patch(user._id).set({favorites:newFavorites}).commit().then(() => {
 			toast.success('Removed from favs successfully')
+		}).catch((err) => {
+			setFavProducts((prev) => {
+				return prev.filter((fav) => slug.current !== fav)
+			})
+			toast.error('Something went wrong.')
+			console.log(err)
 		})
 	}
 
