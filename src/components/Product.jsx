@@ -12,6 +12,7 @@ function Product({
 	discount,
 	seasonDiscount,
 	sizes,
+	highlightedText,
 }) {
 	return (
 		<div className='relative max-w-[360px] lg:max-w-sm'>
@@ -33,7 +34,20 @@ function Product({
 				<img src={urlFor(img)} className='w-full' />
 			</Link>
 			<h3 className='absolute bottom-0 flex w-full items-center justify-between px-6 pb-6 text-lg font-medium'>
-				<span className='w-[60%]'>{name}</span>
+				<span className='w-[60%]'>
+					{name
+						.replace(highlightedText, `_${highlightedText}_`)
+						.split('_')
+						.map((textPiece, index) => {
+							if (textPiece === highlightedText)
+								return (
+									<span key={index} className='text-blue-700'>
+										{textPiece}
+									</span>
+								)
+							return textPiece
+						})}
+				</span>
 				<div className='flex flex-col'>
 					{!discount && !seasonDiscount && <span>${price}</span>}
 					{discount && (

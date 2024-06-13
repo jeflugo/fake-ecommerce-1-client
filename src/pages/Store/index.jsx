@@ -15,6 +15,8 @@ import { Spinner } from '@material-tailwind/react'
 function Store() {
 	const { width, lg, category } = useStateContext()
 	const [shownProducts, setShownProducts] = useState()
+	const [products, setProducts] = useState()
+	const [highlightedText, setHighlightedText] = useState('')
 
 	const [orderByOption, setOrderByOption] = useState(ORDER_BY_OPTIONS[0])
 
@@ -46,8 +48,12 @@ function Store() {
 
 		const productsQuery = `*[_type=="product"${filtersQuery !== '' ? filtersQuery : ''}]${orderByFilter !== '' ? orderByFilter : ''} { name, price, images[0], _id, slug, _createdAt, discount, seasonDiscount, sizes }`
 
-		client.fetch(productsQuery).then(data => setShownProducts(data))
+		client.fetch(productsQuery).then(data => setProducts(data))
 	}, [category, orderByOption])
+
+	useEffect(() => {
+		setShownProducts(products)
+	}, [products])
 
 	return (
 		<div>
@@ -58,7 +64,11 @@ function Store() {
 			<div className='py-6'>
 				<Container>
 					<div className='lg:ml-auto lg:max-w-[300px]'>
-						<SearchBar />
+						<SearchBar
+							setShownProducts={setShownProducts}
+							products={products}
+							setHighlightedText={setHighlightedText}
+						/>
 						<OrderBy
 							orderByOption={orderByOption}
 							setOrderByOption={setOrderByOption}
@@ -69,7 +79,10 @@ function Store() {
 				{width < lg && (
 					<>
 						{shownProducts && shownProducts.length !== 0 ? (
-							<Products products={shownProducts} />
+							<Products
+								products={shownProducts}
+								highlightedText={highlightedText}
+							/>
 						) : (
 							<>
 								{category ? (
