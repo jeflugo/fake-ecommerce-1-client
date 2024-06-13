@@ -16,8 +16,7 @@ const initialCartProducts =
 const initialFavoriteProducts =
 	JSON.parse(localStorage.getItem('favProducts')) || []
 
-const initialUser =
-	JSON.parse(localStorage.getItem('user')) || null
+const initialUser = JSON.parse(localStorage.getItem('user')) || null
 
 export default function StateContext({ children }) {
 	const [width, setWidth] = useState(window.innerWidth)
@@ -204,33 +203,43 @@ export default function StateContext({ children }) {
 	}
 
 	const addToFavs = slug => {
-		const newFavorites = [...favProducts, slug.current] 
+		const newFavorites = [...favProducts, slug.current]
 		setFavProducts(newFavorites)
 		localStorage.setItem('favProducts', JSON.stringify(newFavorites))
-		client.patch(user._id).set({favorites:newFavorites}).commit().then(() => {
-			toast.success('Added to favs successfully')
-		}).catch((err) => {
-			setFavProducts((prev) => {
-				return prev.filter((fav) => slug.current !== fav)
+		client
+			.patch(user._id)
+			.set({ favorites: newFavorites })
+			.commit()
+			.then(() => {
+				toast.success(`${slug.current} added to favs successfully`)
 			})
-			toast.error('Something went wrong.')
-			console.log(err)
-		})
+			.catch(err => {
+				setFavProducts(prev => {
+					return prev.filter(fav => slug.current !== fav)
+				})
+				toast.error('Something went wrong.')
+				console.log(err)
+			})
 	}
 
 	const removeFromFavs = slug => {
-		const newFavorites = favProducts.filter((fav) => slug.current !== fav) 
+		const newFavorites = favProducts.filter(fav => slug.current !== fav)
 		setFavProducts(newFavorites)
 		localStorage.setItem('favProducts', JSON.stringify(newFavorites))
-		client.patch(user._id).set({favorites:newFavorites}).commit().then(() => {
-			toast.success('Removed from favs successfully')
-		}).catch((err) => {
-			setFavProducts((prev) => {
-				return prev.filter((fav) => slug.current !== fav)
+		client
+			.patch(user._id)
+			.set({ favorites: newFavorites })
+			.commit()
+			.then(() => {
+				toast.success(`${slug.current} removed from favs successfully`)
 			})
-			toast.error('Something went wrong.')
-			console.log(err)
-		})
+			.catch(err => {
+				setFavProducts(prev => {
+					return prev.filter(fav => slug.current !== fav)
+				})
+				toast.error('Something went wrong.')
+				console.log(err)
+			})
 	}
 
 	//* UTILS
@@ -269,7 +278,7 @@ export default function StateContext({ children }) {
 				login,
 				register,
 				logout,
-				favProducts
+				favProducts,
 			}}
 		>
 			{children}
