@@ -14,6 +14,12 @@ function SearchBar({ setShownProducts, products, setHighlightedText }) {
 	const search = e => {
 		e.preventDefault()
 
+		if (text === '') {
+			setHighlightedText('')
+			setShownProducts(products)
+			return
+		}
+
 		const matchProducts = products.filter(product =>
 			product.name.toLowerCase().includes(text),
 		)
@@ -46,11 +52,11 @@ function SearchBar({ setShownProducts, products, setHighlightedText }) {
 						type='submit'
 						className='absolute right-0 top-0 flex h-full items-center gap-3 bg-black px-3'
 					>
-						{<FaSearch color='white' />}
+						<FaSearch color='white' />
 					</button>
 				) : (
 					<div className='absolute right-0 top-0 mr-3 flex h-full items-center gap-3'>
-						{<FaSearch />}
+						<FaSearch />
 					</div>
 				)}
 			</label>

@@ -3,6 +3,18 @@ import AddToCart from './AddToCart'
 import { urlFor } from '../lib/client'
 import { Link } from 'react-router-dom'
 
+function markText(text, keyword) {
+	const regex = new RegExp(`(${keyword})`, 'gi')
+	const highlightedText = text.replace(regex, match => {
+		return `<span style="color: blue;">${match}</span>`
+	})
+	return { __html: highlightedText }
+}
+
+function HighlightedName({ text, keyword }) {
+	return <div dangerouslySetInnerHTML={markText(text, keyword)} />
+}
+
 function Product({
 	name,
 	price,
@@ -35,18 +47,7 @@ function Product({
 			</Link>
 			<h3 className='absolute bottom-0 flex w-full items-center justify-between px-6 pb-6 text-lg font-medium'>
 				<span className='w-[60%]'>
-					{name
-						.replace(highlightedText, `_${highlightedText}_`)
-						.split('_')
-						.map((textPiece, index) => {
-							if (textPiece === highlightedText)
-								return (
-									<span key={index} className='text-blue-700'>
-										{textPiece}
-									</span>
-								)
-							return textPiece
-						})}
+					<HighlightedName text={name} keyword={highlightedText} />
 				</span>
 				<div className='flex flex-col'>
 					{!discount && !seasonDiscount && <span>${price}</span>}

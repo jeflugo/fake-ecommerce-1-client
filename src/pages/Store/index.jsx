@@ -105,7 +105,10 @@ function Store() {
 						<div className='mt-6 flex gap-14'>
 							{width > lg && <Categories />}
 							{shownProducts && shownProducts.length !== 0 ? (
-								<Products products={shownProducts} />
+								<Products
+									products={shownProducts}
+									highlightedText={highlightedText}
+								/>
 							) : (
 								<>
 									{category ? (
