@@ -7,11 +7,12 @@ import { client } from './lib/client'
 const Dashboard = lazy(() => import('./pages/Dashboard'))
 const Home = lazy(() => import('./pages/Home'))
 const Store = lazy(() => import('./pages/Store'))
-const PageNotFound = lazy(() => import('./pages/PageNotFound'))
 const ProductDetails = lazy(() => import('./pages/ProductDetails'))
 const Success = lazy(() => import('./components/Success'))
 const Register = lazy(() => import('./pages/Register'))
 const Login = lazy(() => import('./pages/Login'))
+
+const PageNotFound = lazy(() => import('./pages/PageNotFound'))
 
 function App() {
 	const [productsInfo, setProductsInfo] = useState()
